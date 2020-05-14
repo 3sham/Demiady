@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Demiady.Transfer>
+
+<div id="IndxTransfers">
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Supplier.Sup_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+
+            <th class="text-center"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier.Sup_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @if (item.Date.Month.Equals(DateTime.Now.Month))
+                    {
+                        <text>
+                            @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
+
+                            @Html.ActionLink("ازلة", "Delete", new { id = item.ID })
+                        </text>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

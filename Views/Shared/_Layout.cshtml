@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-rtl.css" rel="stylesheet" />
+        <link href="~/Content/Site.css" rel="stylesheet" />
+        <link href="~/Content/css/select2.min.css" rel="stylesheet" />*@
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/helloworld")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top newnav">
+        <div class="container">
+            <div class="navbar-header navbar-right">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("الدمياطي", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("الحسابات الشهرية", "Index", "Accounts")</li>
+                    <li>@Html.ActionLink("التوريدات", "Index", "Transfers")</li>
+                    <li>@Html.ActionLink("المخزن", "Index", "Stores")</li>
+                    <li>@Html.ActionLink("الموردين", "Index", "Suppliers")</li>
+                    <li>@Html.ActionLink("المشتريات", "Index", "Purchases")</li>
+                    @*<li>@Html.ActionLink("العرابين", "Index", "Retainers")</li>*@
+                    <li>@Html.ActionLink("المبيعات", "Index", "Sales")</li>
+                    <li>@Html.ActionLink("قائمة الاسعار", "Index", "Products")</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>معرض موبليات الدمياطي ادارة م \ عاطف صبحي</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

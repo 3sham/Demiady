@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Demiady.Sale>
+<div id="IndxSales">
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Sal_Date)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Client_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Product.Prod_Name)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Count)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.ProdMain_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_gain)
+            </th>
+
+            <th class="text-center"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sal_Date)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProdMain_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_gain)
+            </td>
+
+            <td>
+                @Html.ActionLink("تعديل", "Edit", new { id = item.Sal_ID }) |
+
+                @Html.ActionLink("ازالة", "Delete", new { id = item.Sal_ID })
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>

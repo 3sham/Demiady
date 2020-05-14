@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="30eeb5edd6ab444a9d117d980a2f059d" Name="Diagram1">
+        <EntityTypeShape EntityType="DemiadyModel.Account" Width="1.5" PointX="2.75" PointY="8.375" />
+        <EntityTypeShape EntityType="DemiadyModel.Product" Width="1.5" PointX="0.75" PointY="6" />
+        <EntityTypeShape EntityType="DemiadyModel.Purchase" Width="1.5" PointX="6" PointY="5.875" />
+        <EntityTypeShape EntityType="DemiadyModel.Sale" Width="1.5" PointX="3" PointY="4.5" />
+        <EntityTypeShape EntityType="DemiadyModel.Store" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="DemiadyModel.Supplier" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DemiadyModel.sysdiagram" Width="1.5" PointX="5.75" PointY="9.375" />
+        <EntityTypeShape EntityType="DemiadyModel.Transfer" Width="1.5" PointX="6" PointY="2.875" />
+        <AssociationConnector Association="DemiadyModel.FK_Purchases_Products" />
+        <AssociationConnector Association="DemiadyModel.FK_Sales_Products" />
+        <AssociationConnector Association="DemiadyModel.FK_Store_Products" />
+        <AssociationConnector Association="DemiadyModel.FK_Purchases_Supplier" />
+        <AssociationConnector Association="DemiadyModel.FK_Transfers_Supplier" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

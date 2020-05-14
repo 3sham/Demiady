@@ -1,0 +1,218 @@
+﻿
+@model Demiady.Sale
+
+@{
+    ViewBag.Title = "تسجيل بيانات مبيعات";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<script src="~/Scripts/select2.js"></script>
+<h2>تسجيل بيانات مبيعات جديدة</h2>
+
+@using (Ajax.BeginForm("AddMultiSales", "Sales", new AjaxOptions() { UpdateTargetId = "lstBooks", HttpMethod = "Post", InsertionMode = InsertionMode.InsertAfter }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sal_Date)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Sal_Date, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Sal_Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Client_Name)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Client_Name, new { htmlAttributes = new { @class = "form-control ", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Client_Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("اسم المنتج")
+        <div class="col-md-10">
+            @Html.DropDownList("Prod_ID", null, htmlAttributes: new { @class = "form-control drpProd" })
+            @Html.ValidationMessageFor(model => model.Prod_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Prod_Price)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Prod_Price, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Prod_Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Prod_Count)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Prod_Count, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Prod_Count, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProdMain_Price)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ProdMain_Price, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.ProdMain_Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Prod_gain)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Prod_gain, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Prod_gain, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="button" value="تسجيل" class="btn btn-primary " id="btnAdd" />
+            <input type="button" id="btnSave" class="btn btn-success btn-lg" value="حفظ الكل" />
+        </div>
+    </div>
+</div>
+}
+<table id="tblSales" class="table table-bordered table-striped text-center">
+    <thead>
+        <tr>
+            <th class="text-center" style="width:150px">التاريخ</th>
+            <th class="text-center" style="width:150px">اسم العميل	</th>
+            <th class="text-center" style="width:150px">اسم المنتج</th>
+            <th class="text-center" style="width:150px">سعر بيع المنتج	</th>
+            <th class="text-center" style="width:150px">العدد</th>
+            <th class="text-center" style="width:150px">السعر الاصلي للمنتج</th>
+            <th class="text-center" style="width:150px">المكسب الصافي	</th>
+            <th class="text-center" style="width:150px">ازالة</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+
+</table>
+<div>
+    @Html.ActionLink("الرجوع لقائمة المبيعات", "Index")
+</div>
+<script type="text/javascript">
+    $("body").on("click", "#btnAdd", function () {
+
+        var txtSal_Date = $("#Sal_Date");
+        var txtClient_Name = $("#Client_Name");
+        var txtProd_ID = $("#Prod_ID");
+        var txtProd_Price = $("#Prod_Price");
+        var txtProd_Count = $("#Prod_Count");
+        var txtProdMain_Price = $("#ProdMain_Price");
+        var txtProd_gain = $("#Prod_gain");
+      
+
+
+        var tBody = $("#tblSales > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+
+        var cell = $(row.insertCell(-1));
+        cell.html(txtSal_Date.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtClient_Name.val());
+        
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_ID.find('option:selected').text());
+        cell.attr("name", txtProd_ID.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_Price.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_Count.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProdMain_Price.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_gain.val());
+
+        
+
+
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("class", "btn btn-primary");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("مسح");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+
+        txtProd_Price.val("");
+        txtProd_Count.val("");
+        txtProdMain_Price.val("");
+        txtProd_gain.val("");
+    });
+
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(2).html();
+        if (confirm("هل تريد مسح : " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblSales")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+    $("body").on("click", "#btnSave", function () {
+        //Loop through the Table rows and build a JSON array.
+        var Sales = new Array();
+        $("#tblSales TBODY TR").each(function () {
+            var row = $(this);
+            var Sale = {};
+            Sale.Sal_Date = row.find("TD").eq(0).html();
+            Sale.Client_Name = row.find("TD").eq(1).html();
+            Sale.Prod_ID = row.find("TD").eq(2).attr("name");
+            Sale.Prod_Price = row.find("TD").eq(3).html();
+            Sale.Prod_count = row.find("TD").eq(4).html();
+            Sale.ProdMain_Price = row.find("TD").eq(5).html();
+            Sale.Prod_gain = row.find("TD").eq(6).html();
+
+            Sales.push(Sale);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/Sales/AddMultiSales",
+            data: JSON.stringify(Sales),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.result == 'Redirect')
+                    window.location = r.url;
+            }
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".drpProd").select2();
+
+    })
+</script>

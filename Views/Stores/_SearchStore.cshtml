@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Demiady.Store>
+<div id="IndxStore">
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Product.Prod_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Count)
+            </th>
+
+            @*<th></th>*@
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prod_Count)
+                </td>
+
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+</div>

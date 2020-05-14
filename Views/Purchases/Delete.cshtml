@@ -1,0 +1,69 @@
+﻿@model Demiady.Purchase
+
+@{
+    ViewBag.Title = "ازالة بيانات مشتريات";
+}
+
+<h2>ازالة بيانات مشتريات</h2>
+
+<h3>هل انت متاكد من ازالة هذه المشتريات ؟</h3>
+<div>
+
+    <hr />
+    
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Supplier.Sup_Name)
+            </th>
+          
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Product.Prod_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_count)
+            </th>
+
+           
+        </tr>
+
+       
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Supplier.Sup_Name)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Product.Prod_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Prod_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Prod_count)
+                </td>
+
+                
+            </tr>
+        
+
+    </table>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="ازالة " class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("الرجوع لقائمة المشتريات", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,70 @@
+﻿@model Demiady.Account
+
+@{
+    ViewBag.Title = "تعديل بيانات حسابات";
+}
+
+<h2>تعديل بيانات حسابات شهر @Model.Month</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Acc_ID)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Month)
+        <div class="col-md-9">
+            @Html.Editor("Month", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            @Html.HiddenFor(model => model.Month)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gained)
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.Gained, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Gained, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.In_Account)
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.In_Account, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.In_Account, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Out_Account)
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.Out_Account, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Out_Account, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Wallet)
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.Wallet, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Wallet, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-9">
+            <input type="submit" value="حفظ" class="btn btn-success btn-lg" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("الرجوع للحسابات", "Index")
+</div>

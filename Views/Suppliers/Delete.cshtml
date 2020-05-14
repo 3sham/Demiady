@@ -1,0 +1,70 @@
+﻿@model Demiady.Supplier
+
+@{
+    ViewBag.Title = "ازالة بيانات مورود";
+}
+
+<h2>ازالة بيانات مورود</h2>
+
+<h3>هل انت متاكد من ازالة هذا المورود ؟ </h3>
+<div>
+  
+    <hr />
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Sup_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Sup_Address)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Sup_Phone)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Bank_Account)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Account)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Wasel)
+            </th>
+           
+        </tr>
+
+       
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Sup_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Sup_Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Sup_Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Bank_Account)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Account)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Wasel)
+                </td>
+               
+            </tr>
+        
+
+    </table>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="ازالة" class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("الرجوع لقائمة الموردين", "Index")
+        </div>
+    }
+</div>

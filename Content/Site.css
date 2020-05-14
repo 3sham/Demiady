@@ -1,0 +1,42 @@
+﻿body {
+    font-size:20px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.newnav {
+    background-color: lightsteelblue;
+    border: solid 1px lightsteelblue;
+}
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+    color: black;
+    font-family: 'Bodoni MT';
+    font-weight: bold;
+    font-size: 20px;
+}
+.navbar-inverse .navbar-brand {
+    color: black;
+    font-weight: bold;
+    font-size: 25px;
+}

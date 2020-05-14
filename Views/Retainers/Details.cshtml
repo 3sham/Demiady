@@ -1,0 +1,90 @@
+﻿@model Demiady.Retainer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Retainer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Ret_Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ret_Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Client_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_Count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_Count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProdMain_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProdMain_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prod_gain)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prod_gain)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ret_Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ret_Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Due_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Due_date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Prod_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.Prod_Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Ret_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

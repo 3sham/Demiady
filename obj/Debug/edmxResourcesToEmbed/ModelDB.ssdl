@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DemiadyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Acc_ID" />
+    </Key>
+    <Property Name="Acc_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Month" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Gained" Type="int" Nullable="false" />
+    <Property Name="In_Account" Type="int" Nullable="false" />
+    <Property Name="Out_Account" Type="int" Nullable="false" />
+    <Property Name="Wallet" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Prod_ID" />
+    </Key>
+    <Property Name="Prod_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Prod_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prod_Price" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Purchases">
+    <Key>
+      <PropertyRef Name="Pur_ID" />
+    </Key>
+    <Property Name="Pur_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Prod_Price" Type="int" Nullable="false" />
+    <Property Name="Prod_count" Type="int" Nullable="false" />
+    <Property Name="Sup_ID" Type="int" />
+    <Property Name="Prod_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Retainer">
+    <Key>
+      <PropertyRef Name="Ret_ID" />
+    </Key>
+    <Property Name="Ret_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ret_Date" Type="date" Nullable="false" />
+    <Property Name="Client_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prod_Price" Type="int" Nullable="false" />
+    <Property Name="Prod_Count" Type="int" Nullable="false" />
+    <Property Name="ProdMain_Price" Type="int" Nullable="false" />
+    <Property Name="Prod_gain" Type="int" Nullable="false" />
+    <Property Name="Ret_Value" Type="int" Nullable="false" />
+    <Property Name="Due_date" Type="date" Nullable="false" />
+    <Property Name="Prod_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sales">
+    <Key>
+      <PropertyRef Name="Sal_ID" />
+    </Key>
+    <Property Name="Sal_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Client_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Prod_Price" Type="int" Nullable="false" />
+    <Property Name="Prod_Count" Type="int" Nullable="false" />
+    <Property Name="ProdMain_Price" Type="int" Nullable="false" />
+    <Property Name="Prod_gain" Type="int" Nullable="false" />
+    <Property Name="Sal_Date" Type="date" Nullable="false" />
+    <Property Name="Prod_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Store">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Prod_Count" Type="int" Nullable="false" />
+    <Property Name="Prod_ID" Type="int" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Sup_ID" />
+    </Key>
+    <Property Name="Sup_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sup_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Sup_Address" Type="nvarchar(max)" />
+    <Property Name="Sup_Phone" Type="nchar" MaxLength="10" />
+    <Property Name="Bank_Account" Type="nvarchar(max)" />
+    <Property Name="Account" Type="int" Nullable="false" />
+    <Property Name="Wasel" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Transfers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Value" Type="int" Nullable="false" />
+    <Property Name="Sup_ID" Type="int" />
+  </EntityType>
+  <Association Name="FK_Purchases_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Purchases">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchases_Supplier">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Sup_ID" />
+      </Principal>
+      <Dependent Role="Purchases">
+        <PropertyRef Name="Sup_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Retainer_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="1" />
+    <End Role="Retainer" Type="Self.Retainer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Retainer">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sales_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Sales">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Store_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Store" Type="Self.Store" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Store">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transfers_Supplier">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Sup_ID" />
+      </Principal>
+      <Dependent Role="Transfers">
+        <PropertyRef Name="Sup_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DemiadyModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Retainer" EntityType="Self.Retainer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Transfers" EntityType="Self.Transfers" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Purchases_Products" Association="Self.FK_Purchases_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Purchases" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchases_Supplier" Association="Self.FK_Purchases_Supplier">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="Purchases" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Retainer_Products" Association="Self.FK_Retainer_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Retainer" EntitySet="Retainer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sales_Products" Association="Self.FK_Sales_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Sales" EntitySet="Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Store_Products" Association="Self.FK_Store_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Store" EntitySet="Store" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transfers_Supplier" Association="Self.FK_Transfers_Supplier">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="Transfers" EntitySet="Transfers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

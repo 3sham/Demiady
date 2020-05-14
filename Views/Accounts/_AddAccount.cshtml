@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Demiady.Account>
+
+<div id="IndxAccount">
+    <h1>الحسابات</h1>
+    @if (ViewBag.notFount == "Error")
+    {
+        <h3 style="color:red">من فضلك ادخل الشهر الصحيح</h3>
+    }
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayName("الشهر")
+            </th>
+            <th class="text-center">
+                @Html.DisplayName("الدخل الشهري للبضاعه المباعه")
+            </th>
+            <th class="text-center">
+                @Html.DisplayName("مجموع التوريدات")
+            </th>
+            <th class="text-center">
+                @Html.DisplayName("الربح الشهري")
+            </th>
+            <th class="text-center">
+                @Html.DisplayName("العهدة")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Month)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.In_Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Out_Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gained)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wallet)
+            </td>
+            <td>
+
+                @Html.ActionLink("تعديل", "Edit", new { id = item.Acc_ID }) |
+
+                @Html.ActionLink("ازلة", "Delete", new { id = item.Acc_ID })
+
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>

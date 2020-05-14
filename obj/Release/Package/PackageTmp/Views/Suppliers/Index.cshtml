@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Demiady.Supplier>
+
+@{
+    ViewBag.Title = "قائمة الموردين";
+}
+
+<h2>قائمة الموردين</h2>
+
+<p>
+    @Html.ActionLink("تسجيل اسم مورود جديد", "Create", new { htmlAttributes = new { @class = "btn btn-info" } })
+</p>
+<table class="table table-bordered table-striped text-center">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Sup_Name)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Sup_Address)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Sup_Phone)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Bank_Account)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Account)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Wasel)
+        </th>
+        <th class="text-center"></th>
+        <th class="text-center"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sup_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sup_Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sup_Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Bank_Account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wasel)
+        </td>
+        @if (item.Account == item.Wasel)
+        {
+            <text>
+                <td>
+                    <h4 style="color:brown">حساب خلصان</h4>
+
+                </td>
+            </text>
+        }
+        else
+        {
+            <td>
+                <h4>حساب جاري</h4>
+
+            </td>
+        }
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id = item.Sup_ID }) |
+
+            @Html.ActionLink("ازالة", "Delete", new { id = item.Sup_ID })
+        </td>
+    </tr>
+}
+
+</table>

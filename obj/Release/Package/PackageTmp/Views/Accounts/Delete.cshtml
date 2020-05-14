@@ -1,0 +1,66 @@
+﻿@model Demiady.Account
+
+@{
+    ViewBag.Title = "ازالة حسابات ";
+}
+
+<h2>ازالة حسابات شهر @Model.Month</h2>
+
+<h3>هل انت متاكد من ازالة هذه البيانات ؟</h3>
+<div>
+   
+    <hr />
+
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayName("الشهر")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("الدخل الشهري للبضاعه المباعه")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("مجموع التوريدات")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("الربح الشهري")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("العهدة")
+                </th>
+                
+            </tr>
+
+           
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Month)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.In_Account)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Out_Account)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Gained)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => modelItem.Wallet)
+                    </td>
+                  
+
+                </tr>
+            
+
+        </table>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="ازالة" class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("الرجوع للحسابات", "Index")
+        </div>
+    }
+</div>
