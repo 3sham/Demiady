@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using Demiady;
@@ -33,6 +34,8 @@ namespace Demiady.Controllers
         public ActionResult Search(string searchparam, string searchTerm)
         {
 
+            searchparam = searchparam.Trim();
+            searchTerm = searchTerm.Trim();
             if (searchparam == "Sal_Date")
             {
                 DateTime dt = Convert.ToDateTime(searchTerm);
@@ -305,7 +308,143 @@ namespace Demiady.Controllers
             
             
         }
+        public ActionResult Export(DateTime date, string name)
+        {
 
+            try
+            {
+                name = name.Trim();
+                Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                Microsoft.Office.Interop.Excel.Workbook workbook = app.Workbooks.Add(System.Reflection.Missing.Value);
+                Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.ActiveSheet;
+                if (name == "" && date != null)
+                {
+                    var sale = db.Sales.Include(s=>s.Product).Where(e => e.Sal_Date.Equals(date)).ToList();
+                    if (sale.Count > 0)
+                    {
+                        worksheet.Cells[1, 1] = "المجموع";
+                        worksheet.Cells[1, 2] = "المكسب";
+                        worksheet.Cells[1, 3] = "السعر الاصلي للمنتج";
+                        worksheet.Cells[1, 4] = "العدد";
+                        worksheet.Cells[1, 5] = "سعر بيع المنتج";
+                        worksheet.Cells[1, 6] = "  اسم المنتج   ";
+                        worksheet.Cells[1, 7] = "اسم العميل";
+                        worksheet.Cells[1, 8] = "التاريخ";
+                        int row = 2;
+                        foreach (var p in sale)
+                        {
+                            worksheet.Cells[row, 1] = p.Prod_Count * p.Prod_Price;
+                            worksheet.Cells[row, 2] = p.Prod_gain;
+                            worksheet.Cells[row, 3] = p.ProdMain_Price;
+                            worksheet.Cells[row, 4] = p.Prod_Count;
+                            worksheet.Cells[row, 5] = p.Prod_Price;
+                            worksheet.Cells[row, 6] = p.Product.Prod_Name;
+                            worksheet.Cells[row, 7] = p.Client_Name;
+                            worksheet.Cells[row, 8] = p.Sal_Date;
+                            row++;
+                        }
+                        worksheet.Cells[row, 2] = "المجموع الكلي";
+                        worksheet.Cells[row, 1] = sale.Sum(s => s.Prod_Count * s.Prod_Price);
+                        var row1 = worksheet.Rows[row];
+                        row1.Font.Size = 15;
+                        row1.Font.Bold = true;
+                        row1.Font.Color = System.Drawing.Color.RoyalBlue;
+                        worksheet.get_Range("A1", "H1").EntireColumn.AutoFit();
+                        worksheet.Cells.Style.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                        worksheet.get_Range("A1", "F1").Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                        // format heading
+                        var range_heading = worksheet.get_Range("A1", "H1");
+                        range_heading.Font.Bold = true;
+                        range_heading.Font.Color = System.Drawing.Color.DeepSkyBlue;
+
+                        range_heading.Font.Size = 13;
+                        //string filename = "E:\\مبيعات يوم " + date.ToString("MM-dd-yyy") + ".csv";
+                        string filename = "E:\\مبيعات يوم " + date.ToString("MM-dd-yyy") + ".csv";
+                        workbook.SaveAs(filename);
+                        workbook.Close();
+                        Marshal.ReleaseComObject(workbook);
+                        app.Quit();
+                       
+                        Marshal.FinalReleaseComObject(app);
+                        ViewBag.saaved = "تم التنزيل";
+                        return Json(new { status = "Success" });
+                    }
+                    else
+                    {
+                        return Json(new { status = "Faild" });
+                    }
+
+                }
+               
+                else if (date != null && name != null)
+                {
+                    var sale = db.Sales.Include(s => s.Product).Where(e => e.Sal_Date.Equals(date)).Where(s=>s.Client_Name == name).ToList();
+                    if (sale.Count > 0)
+                    {
+                        worksheet.Cells[1, 1] = "المجموع";
+                        worksheet.Cells[1, 2] = "المكسب";
+                        worksheet.Cells[1, 3] = "السعر الاصلي للمنتج";
+                        worksheet.Cells[1, 4] = "العدد";
+                        worksheet.Cells[1, 5] = "سعر بيع المنتج";
+                        worksheet.Cells[1, 6] = "  اسم المنتج   ";
+                        worksheet.Cells[1, 7] = "اسم العميل";
+                        worksheet.Cells[1, 8] = "التاريخ";
+                        int row = 2;
+                        foreach (var p in sale)
+                        {
+                            worksheet.Cells[row, 1] = p.Prod_Count * p.Prod_Price;
+                            worksheet.Cells[row, 2] = p.Prod_gain;
+                            worksheet.Cells[row, 3] = p.ProdMain_Price;
+                            worksheet.Cells[row, 4] = p.Prod_Count;
+                            worksheet.Cells[row, 5] = p.Prod_Price;
+                            worksheet.Cells[row, 6] = p.Product.Prod_Name;
+                            worksheet.Cells[row, 7] = p.Client_Name;
+                            worksheet.Cells[row, 8] = p.Sal_Date;
+                            row++;
+                        }
+                        worksheet.Cells[row, 2] = "المجموع الكلي";
+                        worksheet.Cells[row, 1] = sale.Sum(s => s.Prod_Count * s.Prod_Price);
+                        var row1 = worksheet.Rows[row];
+                        row1.Font.Size = 15;
+                        row1.Font.Bold = true;
+                        row1.Font.Color = System.Drawing.Color.RoyalBlue;
+                        worksheet.get_Range("A1", "H1").EntireColumn.AutoFit();
+                        worksheet.Cells.Style.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                        worksheet.get_Range("A1", "F1").Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                        // format heading
+                        var range_heading = worksheet.get_Range("A1", "H1");
+                        range_heading.Font.Bold = true;
+                        range_heading.Font.Color = System.Drawing.Color.DeepSkyBlue;
+
+                        range_heading.Font.Size = 13;
+                        //string filename = "E:\\مبيعات يوم " + date.ToString("MM-dd-yyy") + ".csv";
+                        string filename = "E:\\مبيعات  " + name + " يوم " + date.ToString("MM-dd-yyy") + ".csv";
+                        workbook.SaveAs(filename);
+                        workbook.Close();
+                        Marshal.ReleaseComObject(workbook);
+                        app.Quit();
+                        Marshal.FinalReleaseComObject(app);
+                        ViewBag.saaved = "تم التنزيل";
+                        return Json(new { status = "Success" });
+                    }
+                    else
+                    {
+                        return Json(new { status = "Faild" });
+                    }
+                }
+                else
+                {
+                    return Json(new { status = "Faild" });
+                }
+
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Purchases";
+                return View("Error");
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

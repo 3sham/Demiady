@@ -22,6 +22,7 @@ namespace Demiady.Controllers
         }
         public ActionResult Search(string ProductName)
         {
+            ProductName = ProductName.Trim();
             if (ProductName != null)
             {
                 var s = db.Stores.Include(x=>x.Product).Where(b => b.Product.Prod_Name.StartsWith(ProductName));

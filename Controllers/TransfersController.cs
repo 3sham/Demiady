@@ -35,6 +35,8 @@ namespace Demiady.Controllers
         public ActionResult Search(string searchparam, string searchTerm)
         {
 
+            searchparam = searchparam.Trim();
+            searchTerm = searchTerm.Trim();
             if (searchparam == "Date")
             {
                 DateTime dt = Convert.ToDateTime(searchTerm);

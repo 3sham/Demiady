@@ -20,6 +20,10 @@
         <AssociationConnector Association="DemiadyModel.FK_Transfers_Supplier" />
         <EntityTypeShape EntityType="DemiadyModel.Retainer" Width="1.5" PointX="3" PointY="14.625" />
         <AssociationConnector Association="DemiadyModel.FK_Retainer_Products" />
+        <EntityTypeShape EntityType="DemiadyModel.Employee" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DemiadyModel.Expens" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DemiadyModel.TransferEmp" Width="1.5" PointX="3" PointY="19" />
+        <AssociationConnector Association="DemiadyModel.FK_TransferEmp_Employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -11,5 +11,6 @@ namespace Demiady.Models
         public IEnumerable<Sale> sale { get; set; }
         public IEnumerable<Transfer> transfer { get; set; }
         public IEnumerable<Account> account { get; set; }
+        public IEnumerable<Expens> expens { get; set; }
     }
 }

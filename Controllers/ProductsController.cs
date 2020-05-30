@@ -33,6 +33,7 @@ namespace Demiady.Controllers
         {
             if (ProductName != null)
             {
+                ProductName = ProductName.Trim();
                 var s = db.Products.Where(b => b.Prod_Name.StartsWith(ProductName));
 
                 return PartialView("_SearchProducts", s.ToList());

@@ -1,0 +1,65 @@
+﻿@model Demiady.Employee
+
+@{
+    ViewBag.Title = "ازالة بيانات عامل";
+}
+
+<h2>ازالة بيانات عامل</h2>
+
+<h3>هل انت متاكد من ازالة هذه البيانات</h3>
+<div>
+
+    <hr />
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Wasel)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Ba2y)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+
+        </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Wasel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Ba2y)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Date)
+            </td>
+
+        </tr>
+
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="ازالة " class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("الرجوع لقائمة العمال", "Index")
+        </div>
+    }
+</div>

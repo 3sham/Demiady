@@ -4,11 +4,30 @@
     ViewBag.Title = "قائمة المشتريات";
 }
 <script src="~/Scripts/jquery-3.3.1.js"></script>
+
 <h2>قائمة المشتريات</h2>
 
 <p>
     @Html.ActionLink("تسجيل مشتريات جديدة", "AddMultiPurchase")
 </p>
+<div style="float:right">
+    @using (Ajax.BeginForm("Export", "Purchases", new AjaxOptions() { LoadingElementId = "loadImg", OnSuccess = "Success", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="row">
+
+            <div class="col-md-12">
+                <input type="date" name="date" id="search_param" class="form-control">
+                <input type="text" class="form-control" name="name" placeholder="ادخل اسم المورد">
+                <button class="btn btn-info btn-lg" type="submit" onclick="SomeCallBackFunction()">استخراج</button>
+                <img id="loadImg" src="~/Images/loading_photoshop_animation_tutorial.gif" style="display:none" width="140" height="140"/>
+                <div id="LoadingDiv"></div>
+            </div>
+
+        </div>
+
+
+    }
+</div>
 @using (Ajax.BeginForm("Search", "Purchases", new AjaxOptions() { UpdateTargetId = "IndxPurchas", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
 {
     <div class="">
@@ -17,7 +36,7 @@
 
             <input type="hidden" name="searchparam" value="all" id="search_param">
             <input type="text" class="form-control" name="searchTerm">
-            
+
             <div class="input-group-btn search-panel">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                     <span id="search_concept">بحث ب</span> <span class="caret"></span>
@@ -36,6 +55,8 @@
     </div>
 }
 <div id="IndxPurchas">
+
+
     <table class="table table-bordered table-striped text-center">
         <tr>
             <th class="text-center">
@@ -83,14 +104,10 @@
                 </td>
 
                 <td>
-                    @if (item.Date.Month.Equals(DateTime.Now.Month))
-                    {
-                        <text>
-                            @Html.ActionLink("تعديل", "Edit", new { id = item.Pur_ID }) |
 
-                            @Html.ActionLink("ازلة", "Delete", new { id = item.Pur_ID })
-                        </text>
-                    }
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.Pur_ID }) |
+
+                    @Html.ActionLink("ازلة", "Delete", new { id = item.Pur_ID })
 
                 </td>
             </tr>
@@ -99,6 +116,28 @@
     </table>
 
 </div>
+<script>
+    function SomeCallBackFunction()
+
+    { $('#LoadingDiv').show(); }
+
+    function Success(data) {
+
+        if (data.status == "Success") {
+
+            //alert("success");
+            $('#loadImg').hide();
+            $('#LoadingDiv').html("<h4 style='color:green'>تم تنزل الملف</h4>");
+
+        }
+        else if (data.status == "Faild") {
+            $('#loadImg').hide();
+            $('#LoadingDiv').html("<h4 style='color:red'>لا توجد مشتريات ف هذا اليوم او لهذا المورود</h4>");
+        }
+
+    } 
+</script>
+
 <script>
     $(document).ready(function (e) {
         $('.search-panel .dropdown-menu').find('a').click(function (e) {

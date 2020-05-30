@@ -124,6 +124,46 @@
         </table>
     </div>
     <div class="col-lg-6">
+        <h1>المصروفات</h1>
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayName("التاريخ")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("اسم المصروف")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("قيمة المصروف")
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model.expens)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+
+                </tr>
+            }
+
+            <tr>
+                <td colspan="2" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع المصروفات</td>
+
+                <td style="font-size:25px;font-weight:bold">@ViewBag.expens </td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-lg-6">
         <h1>التوريدات</h1>
         <table class="table table-bordered table-striped text-center">
             <tr>

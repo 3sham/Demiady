@@ -34,6 +34,13 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="Retainer" EntitySet="Retainers" />
     </AssociationSet>
+    <EntitySet Name="Employees" EntityType="DemiadyModel.Employee" />
+    <EntitySet Name="Expenses" EntityType="DemiadyModel.Expens" />
+    <EntitySet Name="TransferEmps" EntityType="DemiadyModel.TransferEmp" />
+    <AssociationSet Name="FK_TransferEmp_Employee" Association="DemiadyModel.FK_TransferEmp_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="TransferEmp" EntitySet="TransferEmps" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Account">
     <Key>
@@ -213,6 +220,49 @@
       </Principal>
       <Dependent Role="Retainer">
         <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Emp_ID" />
+    </Key>
+    <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Int32" Nullable="false" />
+    <Property Name="Wasel" Type="Int32" Nullable="false" />
+    <Property Name="Ba2y" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="TransferEmps" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="Employee" ToRole="TransferEmp" />
+  </EntityType>
+  <EntityType Name="Expens">
+    <Key>
+      <PropertyRef Name="Ex_ID" />
+    </Key>
+    <Property Name="Ex_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TransferEmp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+    <Property Name="Emp_ID" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="TransferEmp" ToRole="Employee" />
+  </EntityType>
+  <Association Name="FK_TransferEmp_Employee">
+    <End Type="DemiadyModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="DemiadyModel.TransferEmp" Role="TransferEmp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Emp_ID" />
+      </Principal>
+      <Dependent Role="TransferEmp">
+        <PropertyRef Name="Emp_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

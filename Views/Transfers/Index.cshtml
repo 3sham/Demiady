@@ -63,14 +63,11 @@
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td>
-                @if (item.Date.Month.Equals(DateTime.Now.Month))
-                {
-                    <text>
+               
                         @Html.ActionLink("تعديل", "Edit", new { id = item.ID }) |
 
                         @Html.ActionLink("ازلة", "Delete", new { id = item.ID })
-                    </text>
-                }
+                   
             </td>
         </tr>
         }

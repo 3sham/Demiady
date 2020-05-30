@@ -11,6 +11,26 @@
     <Property Name="Out_Account" Type="int" Nullable="false" />
     <Property Name="Wallet" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Emp_ID" />
+    </Key>
+    <Property Name="Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Salary" Type="int" Nullable="false" />
+    <Property Name="Wasel" Type="int" Nullable="false" />
+    <Property Name="Ba2y" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Expenses">
+    <Key>
+      <PropertyRef Name="Ex_ID" />
+    </Key>
+    <Property Name="Ex_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Value" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Products">
     <Key>
       <PropertyRef Name="Prod_ID" />
@@ -88,6 +108,15 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="TransferEmp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Value" Type="int" Nullable="false" />
+    <Property Name="Emp_ID" Type="int" />
+  </EntityType>
   <EntityType Name="Transfers">
     <Key>
       <PropertyRef Name="ID" />
@@ -157,6 +186,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_TransferEmp_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="TransferEmp" Type="Self.TransferEmp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Emp_ID" />
+      </Principal>
+      <Dependent Role="TransferEmp">
+        <PropertyRef Name="Emp_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Transfers_Supplier">
     <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
     <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
@@ -171,6 +212,8 @@
   </Association>
   <EntityContainer Name="DemiadyModelStoreContainer">
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Retainer" EntityType="Self.Retainer" Schema="dbo" store:Type="Tables" />
@@ -178,6 +221,7 @@
     <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TransferEmp" EntityType="Self.TransferEmp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transfers" EntityType="Self.Transfers" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Purchases_Products" Association="Self.FK_Purchases_Products">
       <End Role="Products" EntitySet="Products" />
@@ -198,6 +242,10 @@
     <AssociationSet Name="FK_Store_Products" Association="Self.FK_Store_Products">
       <End Role="Products" EntitySet="Products" />
       <End Role="Store" EntitySet="Store" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TransferEmp_Employee" Association="Self.FK_TransferEmp_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="TransferEmp" EntitySet="TransferEmp" />
     </AssociationSet>
     <AssociationSet Name="FK_Transfers_Supplier" Association="Self.FK_Transfers_Supplier">
       <End Role="Supplier" EntitySet="Supplier" />

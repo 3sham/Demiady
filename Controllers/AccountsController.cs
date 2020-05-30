@@ -18,15 +18,27 @@ namespace Demiady.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
-            AccountClass s = new AccountClass();
-            s.purchase = db.Purchases.Include(p => p.Supplier).Include(x => x.Product).Where(y => y.Date.Month == DateTime.Now.Month).ToList();
-            ViewBag.sumPurchase = db.Purchases.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x=>x.Prod_count * x.Prod_Price);
-            s.account = db.Accounts.ToList();
-            s.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).ToList();
-            ViewBag.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).Sum(x => x.Prod_gain);
-            s.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).ToList();
-            ViewBag.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Value);
-            return View(s);
+            try
+            {
+                AccountClass s = new AccountClass();
+                s.purchase = db.Purchases.Include(p => p.Supplier).Include(x => x.Product).Where(y => y.Date.Month == DateTime.Now.Month).ToList();
+                ViewBag.sumPurchase = db.Purchases.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Prod_count * x.Prod_Price);
+                s.account = db.Accounts.ToList();
+                s.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).ToList();
+                ViewBag.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).Sum(x => x.Prod_gain);
+                s.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).ToList();
+                ViewBag.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Value);
+                s.expens = db.Expenses.Where(y => y.Date.Month == DateTime.Now.Month).ToList();
+                ViewBag.expens = db.Expenses.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Value);
+                return View(s);
+            }
+            catch(Exception)
+            {
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Accounts";
+                return View("Error");
+            }
+           
         }
 
         [HttpPost]
@@ -118,14 +130,24 @@ namespace Demiady.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Acc_ID,Month,Gained,In_Account,Out_Account,Wallet")] Account account)
         {
-            if (ModelState.IsValid)
+            try
             {
-                
-                db.Entry(account).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+
+                    db.Entry(account).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(account);
             }
-            return View(account);
+            catch(Exception)
+            {
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Accounts";
+                return View("Error");
+            }
+           
         }
 
         // GET: Accounts/Delete/5
@@ -148,10 +170,21 @@ namespace Demiady.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Account account = db.Accounts.Find(id);
-            db.Accounts.Remove(account);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Account account = db.Accounts.Find(id);
+                db.Accounts.Remove(account);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            catch(Exception)
+            {
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Accounts";
+                return View("Error");
+            }
+          
         }
 
         protected override void Dispose(bool disposing)

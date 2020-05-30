@@ -15,6 +15,7 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top newnav">
         <div class="container">
+            
             <div class="navbar-header navbar-right">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -23,13 +24,19 @@
                 </button>
                 @Html.ActionLink("الدمياطي", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
+            @*<ul class="nav navbar-nav navbar-left">
+                <li><h4>تاريخ اليوم :  @DateTime.Now.ToString("yyyy MMMM dd", new System.Globalization.CultureInfo("ar-eg"))</h4></li>
+            </ul>*@
             <div class="navbar-collapse collapse navbar-right">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("الحسابات الشهرية", "Index", "Accounts")</li>
+                    <li>@Html.ActionLink("المصروفات الشهرية", "Index", "Expens")</li>
+                    <li>@Html.ActionLink("حساب العمال", "Index", "Employees")</li>
                     <li>@Html.ActionLink("التوريدات", "Index", "Transfers")</li>
                     <li>@Html.ActionLink("المخزن", "Index", "Stores")</li>
                     <li>@Html.ActionLink("الموردين", "Index", "Suppliers")</li>
                     <li>@Html.ActionLink("المشتريات", "Index", "Purchases")</li>
+                    @*<li>@Html.ActionLink("العرابين", "Index", "Retainers")</li>*@
                     <li>@Html.ActionLink("المبيعات", "Index", "Sales")</li>
                     <li>@Html.ActionLink("قائمة الاسعار", "Index", "Products")</li>
 
@@ -38,10 +45,13 @@
         </div>
     </div>
     <div class="container body-content">
+        <h4 style="text-align:left">تاريخ اليوم :  @DateTime.Now.ToString("yyyy MMMM dd", new System.Globalization.CultureInfo("ar-eg"))</h4>
         @RenderBody()
         <hr />
         <footer>
+
             <p>معرض موبليات الدمياطي ادارة م \ عاطف صبحي</p>
+            <p style="text-align:left">Version 1.1</p>
         </footer>
     </div>
 

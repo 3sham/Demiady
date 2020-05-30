@@ -34,5 +34,8 @@ namespace Demiady
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Transfer> Transfers { get; set; }
         public virtual DbSet<Retainer> Retainers { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Expens> Expenses { get; set; }
+        public virtual DbSet<TransferEmp> TransferEmps { get; set; }
     }
 }

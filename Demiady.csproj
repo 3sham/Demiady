@@ -52,6 +52,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
       <Private>True</Private>
@@ -168,6 +172,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\ExpensController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchasesController.cs" />
@@ -177,6 +183,12 @@
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\TransfersController.cs" />
     <Compile Include="DispalyAttribute.cs" />
+    <Compile Include="Employee.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Expens.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -196,6 +208,7 @@
       <DependentUpon>ModelDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountClass.cs" />
+    <Compile Include="Models\TransferEmployee.cs" />
     <Compile Include="Product.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
@@ -222,6 +235,9 @@
     <Compile Include="Transfer.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="TransferEmp.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-rtl.css" />
@@ -237,7 +253,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\4d95a913e5561fc7-loading-icon-endless-icons.gif" />
+    <Content Include="images\4V3iCCv.gif" />
     <Content Include="images\66627339_2882716808421878_2874373800189755392_n.jpg" />
+    <Content Include="images\loading_photoshop_animation_tutorial.gif" />
+    <Content Include="images\tenor.gif" />
     <Content Include="ModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
@@ -402,6 +422,19 @@
     <Content Include="Views\Retainers\Details.cshtml" />
     <Content Include="Views\Retainers\Edit.cshtml" />
     <Content Include="Views\Retainers\Index.cshtml" />
+    <Content Include="Views\Expens\Create.cshtml" />
+    <Content Include="Views\Expens\Delete.cshtml" />
+    <Content Include="Views\Expens\Details.cshtml" />
+    <Content Include="Views\Expens\Edit.cshtml" />
+    <Content Include="Views\Expens\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\EditEmp.cshtml" />
+    <Content Include="Views\Employees\DeleteEmp.cshtml" />
+    <Content Include="Views\Employees\CreateEmp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

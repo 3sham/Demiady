@@ -21,6 +21,7 @@ namespace Demiady
             this.Purchases = new HashSet<Purchase>();
             this.Transfers = new HashSet<Transfer>();
         }
+
         public int Sup_ID { get; set; }
         [Display(Name = "اسم المورد")]
         [Required(ErrorMessage = "من فضلك ادخل اسم المورد")]

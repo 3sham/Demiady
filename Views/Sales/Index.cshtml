@@ -9,6 +9,24 @@
 <p>
     @Html.ActionLink("تسجيل مبيعات جديدة", "AddMultiSales")
 </p>
+<div style="float:right">
+    @using (Ajax.BeginForm("Export", "Sales", new AjaxOptions() { LoadingElementId = "loadImg", OnSuccess = "Success", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="row">
+
+            <div class="col-md-12">
+                <input type="date" name="date" id="search_param" class="form-control">
+                <input type="text" class="form-control" name="name" placeholder="ادخل اسم العميل">
+                <button class="btn btn-info btn-lg" type="submit" onclick="SomeCallBackFunction()">استخراج</button>
+                <img id="loadImg" src="~/Images/loading_photoshop_animation_tutorial.gif" style="display:none" width="140" height="140"/>
+                <div id="LoadingDiv"></div>
+            </div>
+
+        </div>
+
+
+    }
+</div>
 @using (Ajax.BeginForm("Search", "Sales", new AjaxOptions() { UpdateTargetId = "IndxSales", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
 {
     <div class="">
@@ -93,21 +111,36 @@
 
 
             <td>
-                @if (item.Sal_Date.Month.Equals(DateTime.Now.Month))
-                {
-                    <text>
+               
                         @Html.ActionLink("تعديل", "Edit", new { id = item.Sal_ID }) |
 
                         @Html.ActionLink("ازالة", "Delete", new { id = item.Sal_ID })
 
-                    </text>
-                }
             </td>
         </tr>
         }
 
     </table>
 </div>
+<script>
+    function SomeCallBackFunction() { $('#LoadingDiv').show(); }
+
+    function Success(data) {
+
+        if (data.status == "Success") {
+
+            //alert("success");
+            $('#loadImg').hide();
+            $('#LoadingDiv').html("<h4 style='color:green'>تم تنزل الملف</h4>");
+
+        }
+        else if (data.status == "Faild") {
+            $('#loadImg').hide();
+            $('#LoadingDiv').html("<h4 style='color:red'>لا توجد مبيعات ف هذا اليوم او لهذا العميل</h4>");
+        }
+
+    }
+</script>
 <script>
     $(document).ready(function (e) {
         $('.search-panel .dropdown-menu').find('a').click(function (e) {
