@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Demiady.Expens>
+
+@{
+    ViewBag.Title = "قائمة المصروفات";
+}
+
+<h2>قائمة المصروفات</h2>
+
+<p>
+    @Html.ActionLink("تسجيل مصروفات جديدة", "Create")
+</p>
+<table class="table table-bordered table-striped text-center">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th class="text-center"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.ActionLink("تعديل ", "Edit", new { id=item.Ex_ID }) |
+           
+            @Html.ActionLink("ازالة", "Delete", new { id=item.Ex_ID })
+        </td>
+    </tr>
+}
+
+</table>

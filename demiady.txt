@@ -1,0 +1,227 @@
+ public partial class Account
+    {
+        public int Acc_ID { get; set; }
+        [Required(ErrorMessage = "من فضلك ادخل الشهر")]
+        [Display(Name = "الشهر")]
+        public string Month { get; set; }
+        [Display(Name = "الربح الشهري")]
+        public int Gained { get; set; }
+        [Display(Name = "الدخل الشهري للبضاعه المباعه")]
+        public int In_Account { get; set; }
+        [Display(Name = "مجموع التوريدات")]
+        public int Out_Account { get; set; }
+        [Display(Name = "العهدة")]
+        public int Wallet { get; set; }
+    }
+================================================================================================
+  public partial class Employee
+    {
+        public int Emp_ID { get; set; }
+        [Display(Name = "اسم العامل")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم العامل")]
+        public string Name { get; set; }
+        [Display(Name = "قيمة المرتب")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Salary { get; set; }
+        [Display(Name = "واصل له ")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Wasel { get; set; }
+        [Display(Name = "الباقي")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Ba2y { get; set; }
+        [Display(Name = "تاريخ القبض")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Date { get; set; }
+    }
+================================================================================================
+ public partial class Expens
+    {
+        public int Ex_ID { get; set; }
+        [Display(Name = "التاريخ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Date { get; set; }
+        [Display(Name = "اسم المصروف")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم المصروف")]
+        public string Name { get; set; }
+        [Display(Name = "قيمة المصروف")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Value { get; set; }
+    }
+================================================================================================
+ public int Prod_ID { get; set; }
+        [Display(Name = "اسم المنتج")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم المنتج")]
+        public string Prod_Name { get; set; }
+        [Display(Name = "سعر المنتج")]
+        [Required(ErrorMessage = "من فضلك ادخل سعر المنتج")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_Price { get; set; }
+===============================================================================================
+ public partial class Purchase
+    {
+        public int Pur_ID { get; set; }
+        [Display(Name = "التاريخ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Date { get; set; }
+        [Display(Name = "سعر الواحدة")]
+        [Required(ErrorMessage = "من فضلك ادخل السعر")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_Price { get; set; }
+        [Display(Name = "العدد")]
+        [Required(ErrorMessage = "من فضلك ادخل العدد")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_count { get; set; }
+        public Nullable<int> Sup_ID { get; set; }
+        public Nullable<int> Prod_ID { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual Supplier Supplier { get; set; }
+    }
+=============================================================================================
+ public partial class Retainer
+    {
+        public int Ret_ID { get; set; }
+        [Display(Name = "قيمة العربون")]
+        [Required(ErrorMessage = "من فضلك ادخل المبلغ")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Ret_Value { get; set; }
+        [Display(Name = "اسم العميل")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم العميل")]
+        public string Client_Name { get; set; }
+        [Display(Name = "سعر بيع المنتج")]
+        [Required(ErrorMessage = "من فضلك ادخل السعر")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_Price { get; set; }
+        [Display(Name = "العدد")]
+        [Required(ErrorMessage = "من فضلك ادخل العدد")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_Count { get; set; }
+        [Display(Name = "السعر الاصلي للمنتج")]
+        [Required(ErrorMessage = "من فضلك ادخل السعر")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int ProdMain_Price { get; set; }
+        [Display(Name = "المكسب الصافي")]
+        [Required(ErrorMessage = "من فضلك ادخل المبلغ")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_gain { get; set; }
+        [Display(Name = "تاريخ دفع العربون")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Ret_Date { get; set; }
+        [Display(Name = "تاريخ دفع الباقي")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Due_date { get; set; }
+
+        public int Prod_ID { get; set; }
+    
+        public virtual Product Product { get; set; }
+    }
+=====================================================================================================
+ public partial class Sale
+    {
+
+        public int Sal_ID { get; set; }
+        [Display(Name = "اسم العميل")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم العميل")]
+        public string Client_Name { get; set; }
+        [Display(Name = "سعر بيع المنتج")]
+        [Required(ErrorMessage = "من فضلك ادخل السعر")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_Price { get; set; }
+        [Display(Name = "العدد")]
+        [Required(ErrorMessage = "من فضلك ادخل العدد")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_Count { get; set; }
+        [Display(Name = "السعر الاصلي للمنتج")]
+        [Required(ErrorMessage = "من فضلك ادخل السعر")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int ProdMain_Price { get; set; }
+        [Display(Name = "المكسب الصافي")]
+        [Required(ErrorMessage = "من فضلك ادخل المبلغ")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Prod_gain { get; set; }
+        [Display(Name = "التاريخ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Sal_Date { get; set; }
+        public Nullable<int> Prod_ID { get; set; }
+        public virtual Product Product { get; set; }
+    }
+=====================================================================================================
+ public partial class Store
+    {
+        public int ID { get; set; }
+        [Display(Name = "عدد المنتج")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 او تساويه")]
+        public int Prod_Count { get; set; }
+        [Display(Name = "اسم المنتج")]
+        public Nullable<int> Prod_ID { get; set; }
+        public virtual Product Product { get; set; }
+    }
+======================================================================================================
+ public int Sup_ID { get; set; }
+        [Display(Name = "اسم المورد")]
+        [Required(ErrorMessage = "من فضلك ادخل اسم المورد")]
+        public string Sup_Name { get; set; }
+        [Display(Name = "عنوانه")]
+        public string Sup_Address { get; set; }
+        [Display(Name = "رقم التليفون")]
+        public string Sup_Phone { get; set; }
+        [Display(Name = "رقم حساب البنك")]
+        public string Bank_Account { get; set; }
+        [Display(Name = "حسابه")]
+        [Required(ErrorMessage = "من فضلك ادخل قيمة الحساب")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Account { get; set; }
+        [Display(Name = "واصل له ")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة المدفوعة")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Wasel { get; set; }
+======================================================================================================
+
+ public partial class Transfer
+    {
+        public int ID { get; set; }
+        [Display(Name = "التاريخ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Date { get; set; }
+        [Display(Name = "قيمة التوريد")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Value { get; set; }
+        public Nullable<int> Sup_ID { get; set; }
+
+        public virtual Supplier Supplier { get; set; }
+    }
+=========================================================================================================
+public partial class TransferEmp
+    {
+        public int ID { get; set; }
+        [Display(Name = "التاريخ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
+        public System.DateTime Date { get; set; }
+        [Display(Name = "قيمة التوريد")]
+        [Required(ErrorMessage = "من فضلك ادخل القيمة")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        public int Value { get; set; }
+        public Nullable<int> Emp_ID { get; set; }
+    
+        public virtual Employee Employee { get; set; }
+    }

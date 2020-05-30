@@ -1,0 +1,697 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DemiadyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Acc_ID" />
+          </Key>
+          <Property Name="Acc_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gained" Type="int" Nullable="false" />
+          <Property Name="In_Account" Type="int" Nullable="false" />
+          <Property Name="Out_Account" Type="int" Nullable="false" />
+          <Property Name="Wallet" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Salary" Type="int" Nullable="false" />
+          <Property Name="Wasel" Type="int" Nullable="false" />
+          <Property Name="Ba2y" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="Ex_ID" />
+          </Key>
+          <Property Name="Ex_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="Prod_ID" />
+          </Key>
+          <Property Name="Prod_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prod_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Prod_Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchases">
+          <Key>
+            <PropertyRef Name="Pur_ID" />
+          </Key>
+          <Property Name="Pur_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Prod_Price" Type="int" Nullable="false" />
+          <Property Name="Prod_count" Type="int" Nullable="false" />
+          <Property Name="Sup_ID" Type="int" />
+          <Property Name="Prod_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Retainer">
+          <Key>
+            <PropertyRef Name="Ret_ID" />
+          </Key>
+          <Property Name="Ret_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ret_Date" Type="date" Nullable="false" />
+          <Property Name="Client_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Prod_Price" Type="int" Nullable="false" />
+          <Property Name="Prod_Count" Type="int" Nullable="false" />
+          <Property Name="ProdMain_Price" Type="int" Nullable="false" />
+          <Property Name="Prod_gain" Type="int" Nullable="false" />
+          <Property Name="Ret_Value" Type="int" Nullable="false" />
+          <Property Name="Due_date" Type="date" Nullable="false" />
+          <Property Name="Prod_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="Sal_ID" />
+          </Key>
+          <Property Name="Sal_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Prod_Price" Type="int" Nullable="false" />
+          <Property Name="Prod_Count" Type="int" Nullable="false" />
+          <Property Name="ProdMain_Price" Type="int" Nullable="false" />
+          <Property Name="Prod_gain" Type="int" Nullable="false" />
+          <Property Name="Sal_Date" Type="date" Nullable="false" />
+          <Property Name="Prod_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Prod_Count" Type="int" Nullable="false" />
+          <Property Name="Prod_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Sup_ID" />
+          </Key>
+          <Property Name="Sup_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Sup_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Sup_Address" Type="nvarchar(max)" />
+          <Property Name="Sup_Phone" Type="nchar" MaxLength="10" />
+          <Property Name="Bank_Account" Type="nvarchar(max)" />
+          <Property Name="Account" Type="int" Nullable="false" />
+          <Property Name="Wasel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TransferEmp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="Emp_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Transfers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="Sup_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK_Purchases_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Purchases" Type="Self.Purchases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Sup_ID" />
+            </Principal>
+            <Dependent Role="Purchases">
+              <PropertyRef Name="Sup_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Retainer_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="Retainer" Type="Self.Retainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Retainer">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Store_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Store" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Store">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TransferEmp_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="TransferEmp" Type="Self.TransferEmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="TransferEmp">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Transfers" Type="Self.Transfers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Sup_ID" />
+            </Principal>
+            <Dependent Role="Transfers">
+              <PropertyRef Name="Sup_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DemiadyModelStoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchases" EntityType="Self.Purchases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retainer" EntityType="Self.Retainer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransferEmp" EntityType="Self.TransferEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transfers" EntityType="Self.Transfers" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Purchases_Products" Association="Self.FK_Purchases_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Supplier" Association="Self.FK_Purchases_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Purchases" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Retainer_Products" Association="Self.FK_Retainer_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Retainer" EntitySet="Retainer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Products" Association="Self.FK_Sales_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Store_Products" Association="Self.FK_Store_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Store" EntitySet="Store" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransferEmp_Employee" Association="Self.FK_TransferEmp_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="TransferEmp" EntitySet="TransferEmp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_Supplier" Association="Self.FK_Transfers_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Transfers" EntitySet="Transfers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DemiadyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DemiadyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="DemiadyModel.Account" />
+          <EntitySet Name="Products" EntityType="DemiadyModel.Product" />
+          <EntitySet Name="Purchases" EntityType="DemiadyModel.Purchase" />
+          <EntitySet Name="Sales" EntityType="DemiadyModel.Sale" />
+          <EntitySet Name="Stores" EntityType="DemiadyModel.Store" />
+          <EntitySet Name="Suppliers" EntityType="DemiadyModel.Supplier" />
+          <EntitySet Name="sysdiagrams" EntityType="DemiadyModel.sysdiagram" />
+          <EntitySet Name="Transfers" EntityType="DemiadyModel.Transfer" />
+          <AssociationSet Name="FK_Purchases_Products" Association="DemiadyModel.FK_Purchases_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sales_Products" Association="DemiadyModel.FK_Sales_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Sale" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Store_Products" Association="DemiadyModel.FK_Store_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Store" EntitySet="Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchases_Supplier" Association="DemiadyModel.FK_Purchases_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfers_Supplier" Association="DemiadyModel.FK_Transfers_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <EntitySet Name="Retainers" EntityType="DemiadyModel.Retainer" />
+          <AssociationSet Name="FK_Retainer_Products" Association="DemiadyModel.FK_Retainer_Products">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Retainer" EntitySet="Retainers" />
+          </AssociationSet>
+          <EntitySet Name="Employees" EntityType="DemiadyModel.Employee" />
+          <EntitySet Name="Expenses" EntityType="DemiadyModel.Expens" />
+          <EntitySet Name="TransferEmps" EntityType="DemiadyModel.TransferEmp" />
+          <AssociationSet Name="FK_TransferEmp_Employee" Association="DemiadyModel.FK_TransferEmp_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="TransferEmp" EntitySet="TransferEmps" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Acc_ID" />
+          </Key>
+          <Property Name="Acc_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Month" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gained" Type="Int32" Nullable="false" />
+          <Property Name="In_Account" Type="Int32" Nullable="false" />
+          <Property Name="Out_Account" Type="Int32" Nullable="false" />
+          <Property Name="Wallet" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Prod_ID" />
+          </Key>
+          <Property Name="Prod_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prod_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prod_Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Purchases" Relationship="DemiadyModel.FK_Purchases_Products" FromRole="Product" ToRole="Purchase" />
+          <NavigationProperty Name="Sales" Relationship="DemiadyModel.FK_Sales_Products" FromRole="Product" ToRole="Sale" />
+          <NavigationProperty Name="Stores" Relationship="DemiadyModel.FK_Store_Products" FromRole="Product" ToRole="Store" />
+          <NavigationProperty Name="Retainers" Relationship="DemiadyModel.FK_Retainer_Products" FromRole="Product" ToRole="Retainer" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Pur_ID" />
+          </Key>
+          <Property Name="Pur_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Prod_Price" Type="Int32" Nullable="false" />
+          <Property Name="Prod_count" Type="Int32" Nullable="false" />
+          <Property Name="Sup_ID" Type="Int32" />
+          <Property Name="Prod_ID" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Purchases_Products" FromRole="Purchase" ToRole="Product" />
+          <NavigationProperty Name="Supplier" Relationship="DemiadyModel.FK_Purchases_Supplier" FromRole="Purchase" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="Sal_ID" />
+          </Key>
+          <Property Name="Sal_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prod_Price" Type="Int32" Nullable="false" />
+          <Property Name="Prod_Count" Type="Int32" Nullable="false" />
+          <Property Name="ProdMain_Price" Type="Int32" Nullable="false" />
+          <Property Name="Prod_gain" Type="Int32" Nullable="false" />
+          <Property Name="Sal_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Prod_ID" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Sales_Products" FromRole="Sale" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Prod_Count" Type="Int32" Nullable="false" />
+          <Property Name="Prod_ID" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Store_Products" FromRole="Store" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Sup_ID" />
+          </Key>
+          <Property Name="Sup_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Sup_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sup_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sup_Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Bank_Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Account" Type="Int32" Nullable="false" />
+          <Property Name="Wasel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Purchases" Relationship="DemiadyModel.FK_Purchases_Supplier" FromRole="Supplier" ToRole="Purchase" />
+          <NavigationProperty Name="Transfers" Relationship="DemiadyModel.FK_Transfers_Supplier" FromRole="Supplier" ToRole="Transfer" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Transfer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="Sup_ID" Type="Int32" />
+          <NavigationProperty Name="Supplier" Relationship="DemiadyModel.FK_Transfers_Supplier" FromRole="Transfer" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="FK_Purchases_Products">
+          <End Type="DemiadyModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="DemiadyModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sales_Products">
+          <End Type="DemiadyModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="DemiadyModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Store_Products">
+          <End Type="DemiadyModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="DemiadyModel.Store" Role="Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Store">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchases_Supplier">
+          <End Type="DemiadyModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="DemiadyModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Sup_ID" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="Sup_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfers_Supplier">
+          <End Type="DemiadyModel.Supplier" Role="Supplier" Multiplicity="0..1" />
+          <End Type="DemiadyModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Sup_ID" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="Sup_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Retainer">
+          <Key>
+            <PropertyRef Name="Ret_ID" />
+          </Key>
+          <Property Name="Ret_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ret_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Client_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prod_Price" Type="Int32" Nullable="false" />
+          <Property Name="Prod_Count" Type="Int32" Nullable="false" />
+          <Property Name="ProdMain_Price" Type="Int32" Nullable="false" />
+          <Property Name="Prod_gain" Type="Int32" Nullable="false" />
+          <Property Name="Ret_Value" Type="Int32" Nullable="false" />
+          <Property Name="Due_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Prod_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Retainer_Products" FromRole="Retainer" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Retainer_Products">
+          <End Type="DemiadyModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="DemiadyModel.Retainer" Role="Retainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Prod_ID" />
+            </Principal>
+            <Dependent Role="Retainer">
+              <PropertyRef Name="Prod_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
+          <Property Name="Wasel" Type="Int32" Nullable="false" />
+          <Property Name="Ba2y" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="TransferEmps" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="Employee" ToRole="TransferEmp" />
+        </EntityType>
+        <EntityType Name="Expens">
+          <Key>
+            <PropertyRef Name="Ex_ID" />
+          </Key>
+          <Property Name="Ex_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransferEmp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <NavigationProperty Name="Employee" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="TransferEmp" ToRole="Employee" />
+        </EntityType>
+        <Association Name="FK_TransferEmp_Employee">
+          <End Type="DemiadyModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="DemiadyModel.TransferEmp" Role="TransferEmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="TransferEmp">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DemiadyModelStoreContainer" CdmEntityContainer="DemiadyEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="DemiadyModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Wallet" ColumnName="Wallet" />
+                <ScalarProperty Name="Out_Account" ColumnName="Out_Account" />
+                <ScalarProperty Name="In_Account" ColumnName="In_Account" />
+                <ScalarProperty Name="Gained" ColumnName="Gained" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Acc_ID" ColumnName="Acc_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="DemiadyModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Prod_Price" ColumnName="Prod_Price" />
+                <ScalarProperty Name="Prod_Name" ColumnName="Prod_Name" />
+                <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="DemiadyModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchases">
+                <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
+                <ScalarProperty Name="Sup_ID" ColumnName="Sup_ID" />
+                <ScalarProperty Name="Prod_count" ColumnName="Prod_count" />
+                <ScalarProperty Name="Prod_Price" ColumnName="Prod_Price" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Pur_ID" ColumnName="Pur_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="DemiadyModel.Sale">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
+                <ScalarProperty Name="Sal_Date" ColumnName="Sal_Date" />
+                <ScalarProperty Name="Prod_gain" ColumnName="Prod_gain" />
+                <ScalarProperty Name="ProdMain_Price" ColumnName="ProdMain_Price" />
+                <ScalarProperty Name="Prod_Count" ColumnName="Prod_Count" />
+                <ScalarProperty Name="Prod_Price" ColumnName="Prod_Price" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+                <ScalarProperty Name="Sal_ID" ColumnName="Sal_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="DemiadyModel.Store">
+              <MappingFragment StoreEntitySet="Store">
+                <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
+                <ScalarProperty Name="Prod_Count" ColumnName="Prod_Count" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="DemiadyModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Wasel" ColumnName="Wasel" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
+                <ScalarProperty Name="Sup_Phone" ColumnName="Sup_Phone" />
+                <ScalarProperty Name="Sup_Address" ColumnName="Sup_Address" />
+                <ScalarProperty Name="Sup_Name" ColumnName="Sup_Name" />
+                <ScalarProperty Name="Sup_ID" ColumnName="Sup_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DemiadyModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transfers">
+            <EntityTypeMapping TypeName="DemiadyModel.Transfer">
+              <MappingFragment StoreEntitySet="Transfers">
+                <ScalarProperty Name="Sup_ID" ColumnName="Sup_ID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retainers">
+            <EntityTypeMapping TypeName="DemiadyModel.Retainer">
+              <MappingFragment StoreEntitySet="Retainer">
+                <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
+                <ScalarProperty Name="Due_date" ColumnName="Due_date" />
+                <ScalarProperty Name="Ret_Value" ColumnName="Ret_Value" />
+                <ScalarProperty Name="Prod_gain" ColumnName="Prod_gain" />
+                <ScalarProperty Name="ProdMain_Price" ColumnName="ProdMain_Price" />
+                <ScalarProperty Name="Prod_Count" ColumnName="Prod_Count" />
+                <ScalarProperty Name="Prod_Price" ColumnName="Prod_Price" />
+                <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+                <ScalarProperty Name="Ret_Date" ColumnName="Ret_Date" />
+                <ScalarProperty Name="Ret_ID" ColumnName="Ret_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="DemiadyModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Ba2y" ColumnName="Ba2y" />
+                <ScalarProperty Name="Wasel" ColumnName="Wasel" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="DemiadyModel.Expens">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Ex_ID" ColumnName="Ex_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransferEmps">
+            <EntityTypeMapping TypeName="DemiadyModel.TransferEmp">
+              <MappingFragment StoreEntitySet="TransferEmp">
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

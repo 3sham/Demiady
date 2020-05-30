@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Demiady.Purchase>
+
+<div id="IndxPurchas">
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Supplier.Sup_Name)
+            </th>
+            @*<th class="text-center">
+                    @Html.DisplayNameFor(model => model.Sup_Name)
+                </th>*@
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Product.Prod_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_count)
+            </th>
+
+            <th class="text-center"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier.Sup_Name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Sup_Name)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prod_Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prod_count)
+                </td>
+
+                <td>
+                    @Html.ActionLink("تعديل", "Edit", new { id = item.Pur_ID }) |
+
+                    @Html.ActionLink("ازالة", "Delete", new { id = item.Pur_ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>

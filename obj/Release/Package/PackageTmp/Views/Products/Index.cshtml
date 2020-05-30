@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Demiady.Product>
+
+@{
+    ViewBag.Title = "قائمة الاسعار";
+}
+
+<h2>قائمة الاسعار</h2>
+
+<p>
+    @Html.ActionLink("تسجيل منتج جديد", "Create")
+</p>
+
+@using (Ajax.BeginForm("Search", "Products", new AjaxOptions() { UpdateTargetId = "IndxProduct", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+{
+    <div class="search">
+        <div class="col-md-3">
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="ابحث عن اسم منتج" name="ProductName">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+    <div id="IndxProduct">
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Prod_Name)
+                </th>
+                <th class="text-center">
+                    @Html.DisplayNameFor(model => model.Prod_Price)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prod_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Prod_Price)
+                    </td>
+                    <td>
+                        @Html.ActionLink("تعديل", "Edit", new { id = item.Prod_ID }) |
+                        @Html.ActionLink("ازالة", "Delete", new { id = item.Prod_ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+

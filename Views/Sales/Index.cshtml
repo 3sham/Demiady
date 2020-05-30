@@ -1,0 +1,154 @@
+﻿@model IEnumerable<Demiady.Sale>
+
+@{
+    ViewBag.Title = "قائمة المبيعات";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<h2>قائمة المبيعات</h2>
+
+<p>
+    @Html.ActionLink("تسجيل مبيعات جديدة", "AddMultiSales")
+</p>
+<div style="float:right">
+    @using (Ajax.BeginForm("Export", "Sales", new AjaxOptions() { LoadingElementId = "loadImg", OnSuccess = "Success", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+    {
+        <div class="row">
+
+            <div class="col-md-12">
+                <input type="date" name="date" id="search_param" class="form-control">
+                <input type="text" class="form-control" name="name" placeholder="ادخل اسم العميل">
+                <button class="btn btn-info btn-lg" type="submit" onclick="SomeCallBackFunction()">استخراج</button>
+                <img id="loadImg" src="~/Images/loading_photoshop_animation_tutorial.gif" style="display:none" width="140" height="140"/>
+                <div id="LoadingDiv"></div>
+            </div>
+
+        </div>
+
+
+    }
+</div>
+@using (Ajax.BeginForm("Search", "Sales", new AjaxOptions() { UpdateTargetId = "IndxSales", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+{
+    <div class="">
+        <div class="input-group">
+
+
+            <input type="hidden" name="searchparam" value="all" id="search_param">
+            <input type="text" class="form-control" name="searchTerm">
+
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span id="search_concept">بحث ب</span> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#Sal_Date">التاريخ </a></li>
+                    <li><a href="#Client_Name">اسم العميل</a></li>
+                    <li><a href="#Prod_ID">اسم المنتج</a></li>
+                </ul>
+            </div>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+
+        </div>
+    </div>
+}
+<div id="IndxSales">
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Sal_Date)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Client_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Product.Prod_Name)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Count)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.ProdMain_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_gain)
+            </th>
+
+
+            <th class="text-center"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sal_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_Count)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProdMain_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prod_gain)
+            </td>
+
+
+            <td>
+               
+                        @Html.ActionLink("تعديل", "Edit", new { id = item.Sal_ID }) |
+
+                        @Html.ActionLink("ازالة", "Delete", new { id = item.Sal_ID })
+
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
+<script>
+    function SomeCallBackFunction() { $('#LoadingDiv').show(); }
+
+    function Success(data) {
+
+        if (data.status == "Success") {
+
+            //alert("success");
+            $('#loadImg').hide();
+            $('#LoadingDiv').html("<h4 style='color:green'>تم تنزل الملف</h4>");
+
+        }
+        else if (data.status == "Faild") {
+            $('#loadImg').hide();
+            $('#LoadingDiv').html("<h4 style='color:red'>لا توجد مبيعات ف هذا اليوم او لهذا العميل</h4>");
+        }
+
+    }
+</script>
+<script>
+    $(document).ready(function (e) {
+        $('.search-panel .dropdown-menu').find('a').click(function (e) {
+            e.preventDefault();
+            var param = $(this).attr("href").replace("#", "");
+            var concept = $(this).text();
+            $('.search-panel span#search_concept').text(concept);
+            $('.input-group #search_param').val(param);
+        });
+    });
+</script>

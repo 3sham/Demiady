@@ -1,0 +1,201 @@
+﻿
+@model Demiady.Purchase
+
+@{
+    ViewBag.Title = "تسجيل بيانات مشتريات";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<link href="~/Content/css/select2.css" rel="stylesheet" />
+<script src="~/Scripts/select2.js"></script>
+<h2>تسجيل بيانات مشتريات جديدة</h2>
+
+
+@using (Ajax.BeginForm("AddMulitBorrows", "Borrows", new AjaxOptions() { UpdateTargetId = "lstBooks", HttpMethod = "Post", InsertionMode = InsertionMode.InsertAfter }))
+{
+    @Html.AntiForgeryToken()
+
+
+<div class="form-horizontal">
+
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Date)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("اسم المورد")
+        <div class="col-md-10">
+            @Html.DropDownList("Sup_ID", null, htmlAttributes: new { @class = "form-control drpSup", autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.Sup_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.Sup_Name)
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sup_Name, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                @Html.ValidationMessageFor(model => model.Sup_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Product.Prod_Name)
+        <div class="col-md-10">
+            @Html.DropDownList("Prod_ID", null, htmlAttributes: new { @class = "form-control drpProd", autocomplete = "off" })
+            @Html.ValidationMessageFor(model => model.Prod_ID, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Prod_Price)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Prod_Price, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Prod_Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Prod_count)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Prod_count, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Prod_count, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="button" value="تسجيل" class="btn btn-primary " id="btnAdd" />
+            <input type="button" id="btnSave" class="btn btn-success btn-lg" value="حفظ الكل" />
+        </div>
+    </div>
+
+</div>
+}
+<table id="tblPurchas" class="table table-bordered table-striped text-center">
+    <thead>
+        <tr>
+            <th class="text-center" style="width:150px">التاريخ</th>
+            <th class="text-center" style="width:150px">اسم المورد</th>
+            <th class="text-center" style="width:150px">اسم المنتج</th>
+            <th class="text-center" style="width:150px">سعر الواحدة</th>
+            <th class="text-center" style="width:150px">العدد</th>
+            <th  class="text-center" style="width:150px">ازالة</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+
+</table>
+<div>
+    @Html.ActionLink("الرجوع لقائمة المشتريات", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/javascript">
+    $("body").on("click", "#btnAdd", function () {
+
+        var txtDate = $("#Date");
+        var txtSup_ID = $("#Sup_ID");
+        var txtProd_ID = $("#Prod_ID");
+        var txtProd_Price = $("#Prod_Price");
+        var txtProd_count = $("#Prod_count");
+
+
+        var tBody = $("#tblPurchas > TBODY")[0];
+
+        //Add Row.
+        var row = tBody.insertRow(-1);
+
+
+        var cell = $(row.insertCell(-1));
+        cell.html(txtDate.val());
+
+
+        
+        cell = $(row.insertCell(-1));
+        cell.html(txtSup_ID.find('option:selected').text());
+        cell.attr("name", txtSup_ID.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_ID.find('option:selected').text());
+        cell.attr("name", txtProd_ID.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_Price.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtProd_count.val());
+
+
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input />");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("class", "btn btn-primary");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("مسح");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+
+        txtProd_Price.val("");
+        txtProd_count.val("");
+       
+    });
+
+    function Remove(button) {
+        //Determine the reference of the Row using the Button.
+        var row = $(button).closest("TR");
+        var name = $("TD", row).eq(2).html();
+        if (confirm("هل تريد مسح : " + name)) {
+            //Get the reference of the Table.
+            var table = $("#tblPurchas")[0];
+
+            //Delete the Table row using it's Index.
+            table.deleteRow(row[0].rowIndex);
+        }
+    };
+
+    $("body").on("click", "#btnSave", function () {
+        //Loop through the Table rows and build a JSON array.
+        var Purchases = new Array();
+        $("#tblPurchas TBODY TR").each(function () {
+            var row = $(this);
+            var Purchase = {};
+            Purchase.Date = row.find("TD").eq(0).html();
+            
+            Purchase.Sup_ID = row.find("TD").eq(1).attr("name");
+            Purchase.Prod_ID = row.find("TD").eq(2).attr("name");
+            Purchase.Prod_Price = row.find("TD").eq(3).html();
+            Purchase.Prod_count = row.find("TD").eq(4).html();
+            Purchases.push(Purchase);
+        });
+
+        //Send the JSON array to Controller using AJAX.
+        $.ajax({
+            type: "POST",
+            url: "/Purchases/AddMultiPurchase",
+            data: JSON.stringify(Purchases),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                if (r.result == 'Redirect')
+                    window.location = r.url;
+            }
+
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+        $(".drpProd").select2();
+        $(".drpSup").select2();
+    })
+</script>

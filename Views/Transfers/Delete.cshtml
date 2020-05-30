@@ -1,0 +1,53 @@
+﻿@model Demiady.Transfer
+
+@{
+    ViewBag.Title = "ازالة بيانات توريدات";
+}
+
+<h2>ازالة بيانات توريدات</h2>
+
+<h3>هل انت متاكد من ازالة هذا التوريد ؟</h3>
+<div>
+
+    <hr />
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Supplier.Sup_Name)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+
+        </tr>
+
+       
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Supplier.Sup_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.Value)
+                </td>
+                
+            </tr>
+        
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="ازالة " class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("الرجوع لقائمة المشتريات", "Index")
+        </div>
+    }
+</div>

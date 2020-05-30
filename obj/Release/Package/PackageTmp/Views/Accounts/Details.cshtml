@@ -1,0 +1,58 @@
+﻿@model Demiady.Account
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gained)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gained)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.In_Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.In_Account)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Out_Account)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Out_Account)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Wallet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wallet)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Acc_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

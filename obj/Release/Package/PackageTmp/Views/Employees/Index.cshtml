@@ -1,0 +1,107 @@
+﻿@model  Demiady.Models.TransferEmployee
+
+@{
+    ViewBag.Title = "قائمة العمال";
+}
+<div class="row">
+    <div class="col-md-5">
+        <h2>قبض العمال</h2>
+
+        <p>
+            @Html.ActionLink("تسجيل قبض جديد", "CreateEmp")
+        </p>
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayName("اسم العامل")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("قيمة التوريد")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("التاريخ")
+                </th>
+               
+                <th class="text-center"></th>
+            </tr>
+
+            @foreach (var item in Model.transferEmps)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    
+                    <td>
+                        @Html.ActionLink("تعديل", "EditEmp", new { id = item.ID}) |
+
+                        @Html.ActionLink("ازالة ", "DeleteEmp", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="col-md-7">
+        <h2>قائمة العمال</h2>
+
+        <p>
+            @Html.ActionLink("تسجيل عامل جديد", "Create")
+        </p>
+        <table class="table table-bordered table-striped text-center">
+            <tr>
+                <th class="text-center">
+                    @Html.DisplayName("اسم العامل")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("قيمة الراتب")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("واصل له ")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("الباقي")
+                </th>
+                <th class="text-center">
+                    @Html.DisplayName("تاريخ القبض")
+                </th>
+                <th class="text-center"></th>
+            </tr>
+
+            @foreach (var item in Model.employees)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Salary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Wasel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ba2y)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.ActionLink("تعديل", "Edit", new { id = item.Emp_ID }) |
+
+                        @Html.ActionLink("ازالة ", "Delete", new { id = item.Emp_ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+</div>
