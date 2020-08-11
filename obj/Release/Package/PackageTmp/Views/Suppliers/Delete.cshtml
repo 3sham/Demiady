@@ -21,40 +21,42 @@
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.Sup_Phone)
             </th>
-            <th class="text-center">
-                @Html.DisplayNameFor(model => model.Bank_Account)
-            </th>
+            
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.Account)
             </th>
             <th class="text-center">
                 @Html.DisplayNameFor(model => model.Wasel)
             </th>
-           
+            <th class="text-center">
+                الباقي
+            </th>
         </tr>
 
        
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Sup_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Sup_Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Sup_Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Bank_Account)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Account)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => modelItem.Wasel)
-                </td>
-               
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Sup_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Sup_Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Sup_Phone)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Account)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Wasel)
+            </td>
+            <td>
+                @{ var reuslt = Model.Account - Model.Wasel;}
+
+                @reuslt
+            </td>
+        </tr>
         
 
     </table>

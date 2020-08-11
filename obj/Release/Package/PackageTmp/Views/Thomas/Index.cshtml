@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Demiady.Thoma>
+
+@{
+    ViewBag.Title = "حساب توماس";
+}
+
+<h2>حساب توماس</h2>
+
+<p>
+    @Html.ActionLink("تسجيل مبيعات جديدة", "Create")
+</p>
+<table class="table table-bordered table-striped text-center">
+    <tr>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Product.Prod_Name)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Prod_Price)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Prod_Count)
+        </th>
+
+        <th class="text-center">المجموع</th>
+        <th class="text-center">التحكم</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prod_Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prod_Count)
+        </td>
+        <td>
+            @{ var reuslt = item.Prod_Price * item.Prod_Count;}
+
+            @reuslt
+        </td>
+        <td>
+            @Html.ActionLink("تعديل ", "Edit", new { id = item.ID }) |
+
+            @Html.ActionLink("ازالة", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>

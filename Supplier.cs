@@ -30,8 +30,6 @@ namespace Demiady
         public string Sup_Address { get; set; }
         [Display(Name = "رقم التليفون")]
         public string Sup_Phone { get; set; }
-        [Display(Name = "رقم حساب البنك")]
-        public string Bank_Account { get; set; }
         [Display(Name = "حسابه")]
         [Required(ErrorMessage = "من فضلك ادخل قيمة الحساب")]
         [Range(0, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]

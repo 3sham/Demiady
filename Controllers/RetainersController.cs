@@ -48,7 +48,7 @@ namespace Demiady.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Ret_ID,Ret_Date,Client_Name,Prod_Price,Prod_Count,ProdMain_Price,Prod_gain,Ret_Value,Due_date,Prod_ID")] Retainer retainer)
+        public ActionResult Create([Bind(Include = "Ret_ID,Ret_Date,Client_Name,Client_Phone,Prod_Price,Prod_Count,Ret_Value,Due_date,Prod_ID")] Retainer retainer)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Demiady.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Ret_ID,Ret_Date,Client_Name,Prod_Price,Prod_Count,ProdMain_Price,Prod_gain,Ret_Value,Due_date,Prod_ID")] Retainer retainer)
+        public ActionResult Edit([Bind(Include = "Ret_ID,Ret_Date,Client_Name,Client_Phone,Prod_Price,Prod_Count,Ret_Value,Due_date,Prod_ID")] Retainer retainer)
         {
             if (ModelState.IsValid)
             {

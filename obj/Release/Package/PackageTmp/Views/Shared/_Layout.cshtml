@@ -14,7 +14,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top newnav">
-        <div class="container">
+        <div class="container-fluid">
             
             <div class="navbar-header navbar-right">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,9 +29,23 @@
             </ul>*@
             <div class="navbar-collapse collapse navbar-right">
                 <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            الحسابات
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("المصروفات الشهرية", "Index", "Expens")</li>
+                            <li>@Html.ActionLink("حساب توماس", "Index", "Thomas")</li>
+                            <li>@Html.ActionLink("الحسابات الشهرية", "Index", "Accounts")</li>
+                            <li>@Html.ActionLink("حساب العمال", "Index", "Employees")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("العرابين", "Index", "Retainers")</li>
+                    @*<li>@Html.ActionLink("حساب توماس", "Index", "Thomas")</li>
                     <li>@Html.ActionLink("الحسابات الشهرية", "Index", "Accounts")</li>
-                    <li>@Html.ActionLink("المصروفات الشهرية", "Index", "Expens")</li>
-                    <li>@Html.ActionLink("حساب العمال", "Index", "Employees")</li>
+                    <li>@Html.ActionLink("المصروفات الشهرية", "Index", "Expens")</li>*@
+                    @*<li>@Html.ActionLink("حساب العمال", "Index", "Employees")</li>*@
                     <li>@Html.ActionLink("التوريدات", "Index", "Transfers")</li>
                     <li>@Html.ActionLink("المخزن", "Index", "Stores")</li>
                     <li>@Html.ActionLink("الموردين", "Index", "Suppliers")</li>

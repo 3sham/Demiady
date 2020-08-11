@@ -51,6 +51,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=5.1.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.1.2\lib\net45\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
@@ -89,6 +92,7 @@
     <Reference Include="Mvc.JQuery.DataTables.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvc.JQuery.DataTables.Common.1.5.56\lib\net451\Mvc.JQuery.DataTables.Common.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -97,6 +101,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -181,6 +186,7 @@
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\StoresController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
+    <Compile Include="Controllers\ThomasController.cs" />
     <Compile Include="Controllers\TransfersController.cs" />
     <Compile Include="DispalyAttribute.cs" />
     <Compile Include="Employee.cs">
@@ -232,6 +238,9 @@
     <Compile Include="sysdiagram.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Thoma.cs">
+      <DependentUpon>ModelDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Transfer.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
@@ -253,11 +262,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\4d95a913e5561fc7-loading-icon-endless-icons.gif" />
-    <Content Include="images\4V3iCCv.gif" />
-    <Content Include="images\66627339_2882716808421878_2874373800189755392_n.jpg" />
-    <Content Include="images\loading_photoshop_animation_tutorial.gif" />
-    <Content Include="images\tenor.gif" />
+    <Content Include="images\WhatsApp Image 2020-06-30 at 11.01.54 PM.jpeg" />
     <Content Include="ModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
@@ -417,11 +422,6 @@
     <Content Include="Views\Accounts\_AddAccount.cshtml" />
     <Content Include="Views\Purchases\AddMultiPurchase.cshtml" />
     <Content Include="Views\Sales\AddMultiSales.cshtml" />
-    <Content Include="Views\Retainers\Create.cshtml" />
-    <Content Include="Views\Retainers\Delete.cshtml" />
-    <Content Include="Views\Retainers\Details.cshtml" />
-    <Content Include="Views\Retainers\Edit.cshtml" />
-    <Content Include="Views\Retainers\Index.cshtml" />
     <Content Include="Views\Expens\Create.cshtml" />
     <Content Include="Views\Expens\Delete.cshtml" />
     <Content Include="Views\Expens\Details.cshtml" />
@@ -435,6 +435,19 @@
     <Content Include="Views\Employees\EditEmp.cshtml" />
     <Content Include="Views\Employees\DeleteEmp.cshtml" />
     <Content Include="Views\Employees\CreateEmp.cshtml" />
+    <Content Include="Views\Accounts\_anotherMonth.cshtml" />
+    <Content Include="Views\Suppliers\Details.cshtml" />
+    <Content Include="Views\Thomas\Create.cshtml" />
+    <Content Include="Views\Thomas\Delete.cshtml" />
+    <Content Include="Views\Thomas\Details.cshtml" />
+    <Content Include="Views\Thomas\Edit.cshtml" />
+    <Content Include="Views\Thomas\Index.cshtml" />
+    <Content Include="Views\Retainers\Create.cshtml" />
+    <Content Include="Views\Retainers\Delete.cshtml" />
+    <Content Include="Views\Retainers\Edit.cshtml" />
+    <Content Include="Views\Retainers\Index.cshtml" />
+    <Content Include="Views\Suppliers\_anotherMonthSup.cshtml" />
+    <Content Include="Views\Home\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

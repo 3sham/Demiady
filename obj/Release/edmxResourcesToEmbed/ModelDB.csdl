@@ -2,16 +2,29 @@
 <Schema Namespace="DemiadyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="DemiadyEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Accounts" EntityType="DemiadyModel.Account" />
+    <EntitySet Name="Employees" EntityType="DemiadyModel.Employee" />
+    <EntitySet Name="Expenses" EntityType="DemiadyModel.Expens" />
     <EntitySet Name="Products" EntityType="DemiadyModel.Product" />
     <EntitySet Name="Purchases" EntityType="DemiadyModel.Purchase" />
+    <EntitySet Name="Retainers" EntityType="DemiadyModel.Retainer" />
     <EntitySet Name="Sales" EntityType="DemiadyModel.Sale" />
     <EntitySet Name="Stores" EntityType="DemiadyModel.Store" />
     <EntitySet Name="Suppliers" EntityType="DemiadyModel.Supplier" />
     <EntitySet Name="sysdiagrams" EntityType="DemiadyModel.sysdiagram" />
+    <EntitySet Name="Thomas" EntityType="DemiadyModel.Thoma" />
+    <EntitySet Name="TransferEmps" EntityType="DemiadyModel.TransferEmp" />
     <EntitySet Name="Transfers" EntityType="DemiadyModel.Transfer" />
+    <AssociationSet Name="FK_TransferEmp_Employee" Association="DemiadyModel.FK_TransferEmp_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="TransferEmp" EntitySet="TransferEmps" />
+    </AssociationSet>
     <AssociationSet Name="FK_Purchases_Products" Association="DemiadyModel.FK_Purchases_Products">
       <End Role="Product" EntitySet="Products" />
       <End Role="Purchase" EntitySet="Purchases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Retainer_Products" Association="DemiadyModel.FK_Retainer_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Retainer" EntitySet="Retainers" />
     </AssociationSet>
     <AssociationSet Name="FK_Sales_Products" Association="DemiadyModel.FK_Sales_Products">
       <End Role="Product" EntitySet="Products" />
@@ -21,6 +34,10 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="Store" EntitySet="Stores" />
     </AssociationSet>
+    <AssociationSet Name="FK_Thomas_Products" Association="DemiadyModel.FK_Thomas_Products">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Thoma" EntitySet="Thomas" />
+    </AssociationSet>
     <AssociationSet Name="FK_Purchases_Supplier" Association="DemiadyModel.FK_Purchases_Supplier">
       <End Role="Supplier" EntitySet="Suppliers" />
       <End Role="Purchase" EntitySet="Purchases" />
@@ -28,18 +45,6 @@
     <AssociationSet Name="FK_Transfers_Supplier" Association="DemiadyModel.FK_Transfers_Supplier">
       <End Role="Supplier" EntitySet="Suppliers" />
       <End Role="Transfer" EntitySet="Transfers" />
-    </AssociationSet>
-    <EntitySet Name="Retainers" EntityType="DemiadyModel.Retainer" />
-    <AssociationSet Name="FK_Retainer_Products" Association="DemiadyModel.FK_Retainer_Products">
-      <End Role="Product" EntitySet="Products" />
-      <End Role="Retainer" EntitySet="Retainers" />
-    </AssociationSet>
-    <EntitySet Name="Employees" EntityType="DemiadyModel.Employee" />
-    <EntitySet Name="Expenses" EntityType="DemiadyModel.Expens" />
-    <EntitySet Name="TransferEmps" EntityType="DemiadyModel.TransferEmp" />
-    <AssociationSet Name="FK_TransferEmp_Employee" Association="DemiadyModel.FK_TransferEmp_Employee">
-      <End Role="Employee" EntitySet="Employees" />
-      <End Role="TransferEmp" EntitySet="TransferEmps" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Account">
@@ -53,6 +58,27 @@
     <Property Name="Out_Account" Type="Int32" Nullable="false" />
     <Property Name="Wallet" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Emp_ID" />
+    </Key>
+    <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Int32" Nullable="false" />
+    <Property Name="Wasel" Type="Int32" Nullable="false" />
+    <Property Name="Ba2y" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="TransferEmps" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="Employee" ToRole="TransferEmp" />
+  </EntityType>
+  <EntityType Name="Expens">
+    <Key>
+      <PropertyRef Name="Ex_ID" />
+    </Key>
+    <Property Name="Ex_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="Prod_ID" />
@@ -61,9 +87,10 @@
     <Property Name="Prod_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Prod_Price" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Purchases" Relationship="DemiadyModel.FK_Purchases_Products" FromRole="Product" ToRole="Purchase" />
+    <NavigationProperty Name="Retainers" Relationship="DemiadyModel.FK_Retainer_Products" FromRole="Product" ToRole="Retainer" />
     <NavigationProperty Name="Sales" Relationship="DemiadyModel.FK_Sales_Products" FromRole="Product" ToRole="Sale" />
     <NavigationProperty Name="Stores" Relationship="DemiadyModel.FK_Store_Products" FromRole="Product" ToRole="Store" />
-    <NavigationProperty Name="Retainers" Relationship="DemiadyModel.FK_Retainer_Products" FromRole="Product" ToRole="Retainer" />
+    <NavigationProperty Name="Thomas" Relationship="DemiadyModel.FK_Thomas_Products" FromRole="Product" ToRole="Thoma" />
   </EntityType>
   <EntityType Name="Purchase">
     <Key>
@@ -78,6 +105,21 @@
     <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Purchases_Products" FromRole="Purchase" ToRole="Product" />
     <NavigationProperty Name="Supplier" Relationship="DemiadyModel.FK_Purchases_Supplier" FromRole="Purchase" ToRole="Supplier" />
   </EntityType>
+  <EntityType Name="Retainer">
+    <Key>
+      <PropertyRef Name="Ret_ID" />
+    </Key>
+    <Property Name="Ret_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ret_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Client_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Prod_Price" Type="Int32" Nullable="false" />
+    <Property Name="Prod_Count" Type="Int32" Nullable="false" />
+    <Property Name="Ret_Value" Type="Int32" Nullable="false" />
+    <Property Name="Due_date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Prod_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Retainer_Products" FromRole="Retainer" ToRole="Product" />
+    <Property Name="Client_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="Sale">
     <Key>
       <PropertyRef Name="Sal_ID" />
@@ -91,6 +133,7 @@
     <Property Name="Sal_Date" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Prod_ID" Type="Int32" />
     <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Sales_Products" FromRole="Sale" ToRole="Product" />
+    <Property Name="Client_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Store">
     <Key>
@@ -108,8 +151,7 @@
     <Property Name="Sup_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Sup_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Sup_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Sup_Phone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-    <Property Name="Bank_Account" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Sup_Phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Account" Type="Int32" Nullable="false" />
     <Property Name="Wasel" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Purchases" Relationship="DemiadyModel.FK_Purchases_Supplier" FromRole="Supplier" ToRole="Purchase" />
@@ -125,6 +167,27 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
+  <EntityType Name="Thoma">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Prod_Price" Type="Int32" Nullable="false" />
+    <Property Name="Prod_Count" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Prod_ID" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Thomas_Products" FromRole="Thoma" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="TransferEmp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+    <Property Name="Emp_ID" Type="Int32" />
+    <NavigationProperty Name="Employee" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="TransferEmp" ToRole="Employee" />
+  </EntityType>
   <EntityType Name="Transfer">
     <Key>
       <PropertyRef Name="ID" />
@@ -135,6 +198,18 @@
     <Property Name="Sup_ID" Type="Int32" />
     <NavigationProperty Name="Supplier" Relationship="DemiadyModel.FK_Transfers_Supplier" FromRole="Transfer" ToRole="Supplier" />
   </EntityType>
+  <Association Name="FK_TransferEmp_Employee">
+    <End Type="DemiadyModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="DemiadyModel.TransferEmp" Role="TransferEmp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Emp_ID" />
+      </Principal>
+      <Dependent Role="TransferEmp">
+        <PropertyRef Name="Emp_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Purchases_Products">
     <End Type="DemiadyModel.Product" Role="Product" Multiplicity="0..1" />
     <End Type="DemiadyModel.Purchase" Role="Purchase" Multiplicity="*" />
@@ -143,6 +218,18 @@
         <PropertyRef Name="Prod_ID" />
       </Principal>
       <Dependent Role="Purchase">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Retainer_Products">
+    <End Type="DemiadyModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="DemiadyModel.Retainer" Role="Retainer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Retainer">
         <PropertyRef Name="Prod_ID" />
       </Dependent>
     </ReferentialConstraint>
@@ -171,6 +258,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Thomas_Products">
+    <End Type="DemiadyModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="DemiadyModel.Thoma" Role="Thoma" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Thoma">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Purchases_Supplier">
     <End Type="DemiadyModel.Supplier" Role="Supplier" Multiplicity="0..1" />
     <End Type="DemiadyModel.Purchase" Role="Purchase" Multiplicity="*" />
@@ -192,77 +291,6 @@
       </Principal>
       <Dependent Role="Transfer">
         <PropertyRef Name="Sup_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Retainer">
-    <Key>
-      <PropertyRef Name="Ret_ID" />
-    </Key>
-    <Property Name="Ret_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Ret_Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Client_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Prod_Price" Type="Int32" Nullable="false" />
-    <Property Name="Prod_Count" Type="Int32" Nullable="false" />
-    <Property Name="ProdMain_Price" Type="Int32" Nullable="false" />
-    <Property Name="Prod_gain" Type="Int32" Nullable="false" />
-    <Property Name="Ret_Value" Type="Int32" Nullable="false" />
-    <Property Name="Due_date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Prod_ID" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Product" Relationship="DemiadyModel.FK_Retainer_Products" FromRole="Retainer" ToRole="Product" />
-  </EntityType>
-  <Association Name="FK_Retainer_Products">
-    <End Type="DemiadyModel.Product" Role="Product" Multiplicity="1" />
-    <End Type="DemiadyModel.Retainer" Role="Retainer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Product">
-        <PropertyRef Name="Prod_ID" />
-      </Principal>
-      <Dependent Role="Retainer">
-        <PropertyRef Name="Prod_ID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="Employee">
-    <Key>
-      <PropertyRef Name="Emp_ID" />
-    </Key>
-    <Property Name="Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Salary" Type="Int32" Nullable="false" />
-    <Property Name="Wasel" Type="Int32" Nullable="false" />
-    <Property Name="Ba2y" Type="Int32" Nullable="false" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="TransferEmps" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="Employee" ToRole="TransferEmp" />
-  </EntityType>
-  <EntityType Name="Expens">
-    <Key>
-      <PropertyRef Name="Ex_ID" />
-    </Key>
-    <Property Name="Ex_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Value" Type="Int32" Nullable="false" />
-  </EntityType>
-  <EntityType Name="TransferEmp">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Value" Type="Int32" Nullable="false" />
-    <Property Name="Emp_ID" Type="Int32" />
-    <NavigationProperty Name="Employee" Relationship="DemiadyModel.FK_TransferEmp_Employee" FromRole="TransferEmp" ToRole="Employee" />
-  </EntityType>
-  <Association Name="FK_TransferEmp_Employee">
-    <End Type="DemiadyModel.Employee" Role="Employee" Multiplicity="0..1" />
-    <End Type="DemiadyModel.TransferEmp" Role="TransferEmp" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Employee">
-        <PropertyRef Name="Emp_ID" />
-      </Principal>
-      <Dependent Role="TransferEmp">
-        <PropertyRef Name="Emp_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

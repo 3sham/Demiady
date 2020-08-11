@@ -26,7 +26,7 @@ namespace Demiady
         [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
         public int Value { get; set; }
         public Nullable<int> Emp_ID { get; set; }
-    
+
         public virtual Employee Employee { get; set; }
     }
 }

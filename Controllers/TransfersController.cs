@@ -215,9 +215,10 @@ namespace Demiady.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (Exception)
+            catch (Exception Ex)
             {
-                ViewBag.Error = "حدث خطأ ";
+                ViewBag.Error = "لا يمكن حذف هذا المنتج لسبب ";
+                ViewBag.Error += Ex.Message;
                 ViewData["page"] = "Transfers";
                 return View("Error");
             }

@@ -35,6 +35,13 @@
         </div>
     </div>
     <div class="form-group">
+        @Html.LabelFor(model => model.Client_Phone)
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Client_Phone, new { htmlAttributes = new { @class = "form-control ", autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.Client_Phone, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
         @Html.Label("اسم المنتج")
         <div class="col-md-10">
             @Html.DropDownList("Prod_ID", null, htmlAttributes: new { @class = "form-control drpProd" })
@@ -90,6 +97,7 @@
         <tr>
             <th class="text-center" style="width:150px">التاريخ</th>
             <th class="text-center" style="width:150px">اسم العميل	</th>
+            <th class="text-center" style="width:150px">رقم العميل	</th>
             <th class="text-center" style="width:150px">اسم المنتج</th>
             <th class="text-center" style="width:150px">سعر بيع المنتج	</th>
             <th class="text-center" style="width:150px">العدد</th>
@@ -109,6 +117,7 @@
 
         var txtSal_Date = $("#Sal_Date");
         var txtClient_Name = $("#Client_Name");
+        var txtClient_Phone = $("#Client_Phone");
         var txtProd_ID = $("#Prod_ID");
         var txtProd_Price = $("#Prod_Price");
         var txtProd_Count = $("#Prod_Count");
@@ -126,8 +135,13 @@
         var cell = $(row.insertCell(-1));
         cell.html(txtSal_Date.val());
 
+        
+
         cell = $(row.insertCell(-1));
         cell.html(txtClient_Name.val());
+
+        cell = $(row.insertCell(-1));
+        cell.html(txtClient_Phone.val());
         
         cell = $(row.insertCell(-1));
         cell.html(txtProd_ID.find('option:selected').text());
@@ -162,12 +176,13 @@
         txtProd_Count.val("");
         txtProdMain_Price.val("");
         txtProd_gain.val("");
+        txtClient_Phone.val("");
     });
 
     function Remove(button) {
         //Determine the reference of the Row using the Button.
         var row = $(button).closest("TR");
-        var name = $("TD", row).eq(2).html();
+        var name = $("TD", row).eq(3).html();
         if (confirm("هل تريد مسح : " + name)) {
             //Get the reference of the Table.
             var table = $("#tblSales")[0];
@@ -185,11 +200,12 @@
             var Sale = {};
             Sale.Sal_Date = row.find("TD").eq(0).html();
             Sale.Client_Name = row.find("TD").eq(1).html();
-            Sale.Prod_ID = row.find("TD").eq(2).attr("name");
-            Sale.Prod_Price = row.find("TD").eq(3).html();
-            Sale.Prod_count = row.find("TD").eq(4).html();
-            Sale.ProdMain_Price = row.find("TD").eq(5).html();
-            Sale.Prod_gain = row.find("TD").eq(6).html();
+            Sale.Client_Phone = row.find("TD").eq(2).html();
+            Sale.Prod_ID = row.find("TD").eq(3).attr("name");
+            Sale.Prod_Price = row.find("TD").eq(4).html();
+            Sale.Prod_count = row.find("TD").eq(5).html();
+            Sale.ProdMain_Price = row.find("TD").eq(6).html();
+            Sale.Prod_gain = row.find("TD").eq(7).html();
 
             Sales.push(Sale);
         });

@@ -21,16 +21,13 @@
             @Html.DisplayNameFor(model => model.Sup_Phone)
         </th>
         <th class="text-center">
-            @Html.DisplayNameFor(model => model.Bank_Account)
-        </th>
-        <th class="text-center">
             @Html.DisplayNameFor(model => model.Account)
         </th>
         <th class="text-center">
             @Html.DisplayNameFor(model => model.Wasel)
         </th>
-        <th class="text-center"></th>
-        <th class="text-center"></th>
+        <th class="text-center">الباقي</th>
+        <th class="text-center">التحكم</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -44,35 +41,25 @@
         <td>
             @Html.DisplayFor(modelItem => item.Sup_Phone)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Bank_Account)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.Account)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Wasel)
         </td>
-        @if (item.Account == item.Wasel)
-        {
-            <text>
-                <td>
-                    <h4 style="color:brown;font-size:25px;">حساب خلصان</h4>
 
-                </td>
-            </text>
-        }
-        else
-        {
-            <td>
-                <h4>حساب جاري</h4>
+        <td>
+             @{ var reuslt = item.Account - item.Wasel;}
+           
+            @reuslt
+        </td>
 
-            </td>
-        }
         <td>
             @Html.ActionLink("تعديل", "Edit", new { id = item.Sup_ID }) |
 
-            @Html.ActionLink("ازالة", "Delete", new { id = item.Sup_ID })
+            @Html.ActionLink("ازالة", "Delete", new { id = item.Sup_ID }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id = item.Sup_ID })
         </td>
     </tr>
 }

@@ -13,6 +13,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="DemiadyModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Ba2y" ColumnName="Ba2y" />
+          <ScalarProperty Name="Wasel" ColumnName="Wasel" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Expenses">
+      <EntityTypeMapping TypeName="DemiadyModel.Expens">
+        <MappingFragment StoreEntitySet="Expenses">
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Ex_ID" ColumnName="Ex_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="DemiadyModel.Product">
         <MappingFragment StoreEntitySet="Products">
@@ -34,9 +56,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Retainers">
+      <EntityTypeMapping TypeName="DemiadyModel.Retainer">
+        <MappingFragment StoreEntitySet="Retainer">
+          <ScalarProperty Name="Client_Phone" ColumnName="Client_Phone" />
+          <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
+          <ScalarProperty Name="Due_date" ColumnName="Due_date" />
+          <ScalarProperty Name="Ret_Value" ColumnName="Ret_Value" />
+          <ScalarProperty Name="Prod_Count" ColumnName="Prod_Count" />
+          <ScalarProperty Name="Prod_Price" ColumnName="Prod_Price" />
+          <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
+          <ScalarProperty Name="Ret_Date" ColumnName="Ret_Date" />
+          <ScalarProperty Name="Ret_ID" ColumnName="Ret_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Sales">
       <EntityTypeMapping TypeName="DemiadyModel.Sale">
         <MappingFragment StoreEntitySet="Sales">
+          <ScalarProperty Name="Client_Phone" ColumnName="Client_Phone" />
           <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
           <ScalarProperty Name="Sal_Date" ColumnName="Sal_Date" />
           <ScalarProperty Name="Prod_gain" ColumnName="Prod_gain" />
@@ -62,7 +100,6 @@
         <MappingFragment StoreEntitySet="Supplier">
           <ScalarProperty Name="Wasel" ColumnName="Wasel" />
           <ScalarProperty Name="Account" ColumnName="Account" />
-          <ScalarProperty Name="Bank_Account" ColumnName="Bank_Account" />
           <ScalarProperty Name="Sup_Phone" ColumnName="Sup_Phone" />
           <ScalarProperty Name="Sup_Address" ColumnName="Sup_Address" />
           <ScalarProperty Name="Sup_Name" ColumnName="Sup_Name" />
@@ -81,51 +118,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Transfers">
-      <EntityTypeMapping TypeName="DemiadyModel.Transfer">
-        <MappingFragment StoreEntitySet="Transfers">
-          <ScalarProperty Name="Sup_ID" ColumnName="Sup_ID" />
-          <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Retainers">
-      <EntityTypeMapping TypeName="DemiadyModel.Retainer">
-        <MappingFragment StoreEntitySet="Retainer">
+    <EntitySetMapping Name="Thomas">
+      <EntityTypeMapping TypeName="DemiadyModel.Thoma">
+        <MappingFragment StoreEntitySet="Thomas">
           <ScalarProperty Name="Prod_ID" ColumnName="Prod_ID" />
-          <ScalarProperty Name="Due_date" ColumnName="Due_date" />
-          <ScalarProperty Name="Ret_Value" ColumnName="Ret_Value" />
-          <ScalarProperty Name="Prod_gain" ColumnName="Prod_gain" />
-          <ScalarProperty Name="ProdMain_Price" ColumnName="ProdMain_Price" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Prod_Count" ColumnName="Prod_Count" />
           <ScalarProperty Name="Prod_Price" ColumnName="Prod_Price" />
-          <ScalarProperty Name="Client_Name" ColumnName="Client_Name" />
-          <ScalarProperty Name="Ret_Date" ColumnName="Ret_Date" />
-          <ScalarProperty Name="Ret_ID" ColumnName="Ret_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Employees">
-      <EntityTypeMapping TypeName="DemiadyModel.Employee">
-        <MappingFragment StoreEntitySet="Employee">
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Ba2y" ColumnName="Ba2y" />
-          <ScalarProperty Name="Wasel" ColumnName="Wasel" />
-          <ScalarProperty Name="Salary" ColumnName="Salary" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Expenses">
-      <EntityTypeMapping TypeName="DemiadyModel.Expens">
-        <MappingFragment StoreEntitySet="Expenses">
-          <ScalarProperty Name="Value" ColumnName="Value" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="Ex_ID" ColumnName="Ex_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -133,6 +133,16 @@
       <EntityTypeMapping TypeName="DemiadyModel.TransferEmp">
         <MappingFragment StoreEntitySet="TransferEmp">
           <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transfers">
+      <EntityTypeMapping TypeName="DemiadyModel.Transfer">
+        <MappingFragment StoreEntitySet="Transfers">
+          <ScalarProperty Name="Sup_ID" ColumnName="Sup_ID" />
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="ID" ColumnName="ID" />

@@ -1,0 +1,136 @@
+﻿@model  Demiady.Models.AccountClass
+@{
+    ViewBag.Title = "تفاصيل مورد";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<h1>  تفاصيل المورد : @ViewBag.name </h1>
+
+@using (Ajax.BeginForm("AnotherMonthSup", "Suppliers", new AjaxOptions() { UpdateTargetId = "IndxSup", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+{
+
+    <h3>لمعرفة حسابات شهر اخر</h3>
+    <select class="form-control-static" name="Month" style="font-size:20px;">
+        <option value="">اختر الشهر</option>
+        <option value="1">يناير</option>
+        <option value="2">فبراير</option>
+        <option value="3">مارس</option>
+        <option value="4">ابريل</option>
+        <option value="5">مايو</option>
+        <option value="6">يونيو</option>
+        <option value="7">يوليو</option>
+        <option value="8">اغسطس</option>
+        <option value="9">سبتمبر</option>
+        <option value="10">اكتوبر</option>
+        <option value="11">نوفمبر</option>
+        <option value="12">ديسمبر</option>
+    </select>
+    <input type="hidden" name="id" value="@ViewBag.id" />
+    <button class="btn btn-info btn-lg" type="submit">احسب</button>
+
+
+
+
+}
+<div id="IndxSup">
+    <div class="row">
+
+
+
+        <div class="col-lg-6">
+            <h1>التوريدات</h1>
+            <table class="table table-bordered table-striped text-center">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayName("التاريخ")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المورد")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("قيمة التوريد")
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.transfer)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.Sup_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="2" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع التوريدات</td>
+
+                    <td style="font-size:25px;font-weight:bold">@ViewBag.transfer</td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-lg-6">
+            <h1>المشتريات</h1>
+            <table class="table table-bordered table-striped text-center">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayName("التاريخ")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المورد")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المنتج")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("سعر الواحدة")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("العدد")
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @foreach (var item in Model.purchase)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.Sup_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prod_Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prod_count)
+                        </td>
+
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع المشتريات</td>
+
+                    <td colspan="2" style="font-size:25px;font-weight:bold">@ViewBag.sumPurchase</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("الرجوع لقائمة الموردين", "Index")
+    </div>
+</div>

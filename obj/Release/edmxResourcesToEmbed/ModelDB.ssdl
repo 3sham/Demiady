@@ -57,10 +57,9 @@
     <Property Name="Ret_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Ret_Date" Type="date" Nullable="false" />
     <Property Name="Client_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Client_Phone" Type="nvarchar(max)" />
     <Property Name="Prod_Price" Type="int" Nullable="false" />
     <Property Name="Prod_Count" Type="int" Nullable="false" />
-    <Property Name="ProdMain_Price" Type="int" Nullable="false" />
-    <Property Name="Prod_gain" Type="int" Nullable="false" />
     <Property Name="Ret_Value" Type="int" Nullable="false" />
     <Property Name="Due_date" Type="date" Nullable="false" />
     <Property Name="Prod_ID" Type="int" Nullable="false" />
@@ -71,6 +70,7 @@
     </Key>
     <Property Name="Sal_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Client_Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Client_Phone" Type="nvarchar(max)" />
     <Property Name="Prod_Price" Type="int" Nullable="false" />
     <Property Name="Prod_Count" Type="int" Nullable="false" />
     <Property Name="ProdMain_Price" Type="int" Nullable="false" />
@@ -93,8 +93,7 @@
     <Property Name="Sup_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Sup_Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sup_Address" Type="nvarchar(max)" />
-    <Property Name="Sup_Phone" Type="nchar" MaxLength="10" />
-    <Property Name="Bank_Account" Type="nvarchar(max)" />
+    <Property Name="Sup_Phone" Type="nvarchar(max)" />
     <Property Name="Account" Type="int" Nullable="false" />
     <Property Name="Wasel" Type="int" Nullable="false" />
   </EntityType>
@@ -107,6 +106,16 @@
     <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Thomas">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Prod_Price" Type="int" Nullable="false" />
+    <Property Name="Prod_Count" Type="int" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="Prod_ID" Type="int" />
   </EntityType>
   <EntityType Name="TransferEmp">
     <Key>
@@ -186,6 +195,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Thomas_Products">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Thomas" Type="Self.Thomas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="Prod_ID" />
+      </Principal>
+      <Dependent Role="Thomas">
+        <PropertyRef Name="Prod_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TransferEmp_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
     <End Role="TransferEmp" Type="Self.TransferEmp" Multiplicity="*" />
@@ -221,6 +242,7 @@
     <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Thomas" EntityType="Self.Thomas" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TransferEmp" EntityType="Self.TransferEmp" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transfers" EntityType="Self.Transfers" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Purchases_Products" Association="Self.FK_Purchases_Products">
@@ -242,6 +264,10 @@
     <AssociationSet Name="FK_Store_Products" Association="Self.FK_Store_Products">
       <End Role="Products" EntitySet="Products" />
       <End Role="Store" EntitySet="Store" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Thomas_Products" Association="Self.FK_Thomas_Products">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Thomas" EntitySet="Thomas" />
     </AssociationSet>
     <AssociationSet Name="FK_TransferEmp_Employee" Association="Self.FK_TransferEmp_Employee">
       <End Role="Employee" EntitySet="Employee" />

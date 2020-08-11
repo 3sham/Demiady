@@ -34,13 +34,15 @@ namespace Demiady
         public int ProdMain_Price { get; set; }
         [Display(Name = "المكسب الصافي")]
         [Required(ErrorMessage = "من فضلك ادخل المبلغ")]
-        [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
+        [Range(0, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
         public int Prod_gain { get; set; }
         [Display(Name = "التاريخ")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "من فضلك ادخل التاريخ")]
         public System.DateTime Sal_Date { get; set; }
+        [Display(Name = "رقم العميل")]
+        public string Client_Phone { get; set; }
         public Nullable<int> Prod_ID { get; set; }
         public virtual Product Product { get; set; }
     }

@@ -13,6 +13,28 @@ namespace Demiady.Controllers
             return View();
         }
 
-      
+        [HttpGet]
+        public ActionResult login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult login(string pass)
+        {
+            string password = System.Configuration.ConfigurationManager.AppSettings["password"].ToString();
+            if (pass == password)
+            {
+
+                ViewBag.error = "tr";
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                ViewBag.error = "fa";
+                return View();
+            }
+
+        }
     }
 }

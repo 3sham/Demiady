@@ -161,4 +161,6 @@ E:\Gerges\Demiady\Demiady\obj\Debug\Demiady.csproj.CoreCompileInputs.cache
 E:\Gerges\Demiady\Demiady\obj\Debug\Demiady.csproj.CopyComplete
 E:\Gerges\Demiady\Demiady\obj\Debug\Demiady.dll
 E:\Gerges\Demiady\Demiady\obj\Debug\Demiady.pdb
+E:\Gerges\Demiady\Demiady\bin\EPPlus.dll
+E:\Gerges\Demiady\Demiady\bin\EPPlus.xml
 E:\Gerges\Demiady\Demiady\obj\Debug\Demiady.csprojAssemblyReference.cache

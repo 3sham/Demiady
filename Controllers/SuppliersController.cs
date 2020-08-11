@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Demiady;
+using Demiady.Models;
 
 namespace Demiady.Controllers
 {
@@ -22,6 +23,7 @@ namespace Demiady.Controllers
         {
             try
             {
+                
                 return View(db.Suppliers.ToList());
             }
             catch (Exception )
@@ -37,18 +39,46 @@ namespace Demiady.Controllers
         // GET: Suppliers/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                AccountClass s = new AccountClass();
+                s.purchase = db.Purchases.Include(p => p.Supplier).Include(x => x.Product).Where(y => y.Date.Month == DateTime.Now.Month).Where(x=>x.Sup_ID == id).ToList();
+                ViewBag.sumPurchase = db.Purchases.Where(x => x.Sup_ID == id).Where(y => y.Date.Month.Equals(DateTime.Now.Month)).AsEnumerable().Sum(x => x.Prod_count * x.Prod_Price);
+                s.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).Where(x => x.Sup_ID == id).ToList();
+                ViewBag.transfer = db.Transfers.Where(x => x.Sup_ID == id).Where(y => y.Date.Month == DateTime.Now.Month).AsEnumerable().Sum(x => x.Value);
+                ViewBag.id = id;
+                ViewBag.name = db.Suppliers.Find( id).Sup_Name;
+                return View(s);
             }
-            Supplier supplier = db.Suppliers.Find(id);
-            if (supplier == null)
+            catch (Exception)
             {
-                return HttpNotFound();
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Suppliers";
+                return View("Error");
             }
-            return View(supplier);
         }
 
+        public ActionResult AnotherMonthSup(string Month, int id)
+        {
+            try
+            {
+                AccountClass s = new AccountClass();
+                s.purchase = db.Purchases.Include(p => p.Supplier).Include(x => x.Product).Where(y => y.Date.Month.ToString() == Month).Where(x => x.Sup_ID == id).ToList();
+                ViewBag.sumPurchase = db.Purchases.Where(x => x.Sup_ID == id).Where(y => y.Date.Month.ToString() == Month).AsEnumerable().Sum(x => x.Prod_count * x.Prod_Price);
+
+                s.transfer = db.Transfers.Where(x => x.Sup_ID == id).Where(y => y.Date.Month.ToString() == Month).ToList();
+                ViewBag.transfer = db.Transfers.Where(x => x.Sup_ID== id).Where(y => y.Date.Month.ToString() == Month).AsEnumerable().Sum(x => x.Value);
+
+                ViewBag.month = Month;
+                return PartialView("_anotherMonthSup", s);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Suppliers";
+                return View("Error");
+            }
+        }
         // GET: Suppliers/Create
         public ActionResult Create()
         {
@@ -67,9 +97,21 @@ namespace Demiady.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    db.Suppliers.Add(supplier);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var s = db.Suppliers.Where(x => x.Sup_Name == supplier.Sup_Name).ToList();
+                    if (s.Count() > 0)
+                    {
+                        ViewBag.Error = "هذا المورد مسجل بالفعل";
+                        ViewData["page"] = "Suppliers";
+                        return View("Error");
+                    }
+                    else
+                    {
+                        supplier.Wasel = 0;
+                        db.Suppliers.Add(supplier);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    
                 }
 
                 return View(supplier);
@@ -110,9 +152,9 @@ namespace Demiady.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    db.Entry(supplier).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                        db.Entry(supplier).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
                 }
                 return View(supplier);
             }

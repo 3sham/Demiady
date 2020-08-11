@@ -22,23 +22,47 @@ namespace Demiady.Controllers
             {
                 AccountClass s = new AccountClass();
                 s.purchase = db.Purchases.Include(p => p.Supplier).Include(x => x.Product).Where(y => y.Date.Month == DateTime.Now.Month).ToList();
-                ViewBag.sumPurchase = db.Purchases.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Prod_count * x.Prod_Price);
+                ViewBag.sumPurchase = db.Purchases.Where(y => y.Date.Month.Equals(DateTime.Now.Month)).AsEnumerable().Sum(x => x.Prod_count * x.Prod_Price);
                 s.account = db.Accounts.ToList();
                 s.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).ToList();
-                ViewBag.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).Sum(x => x.Prod_gain);
+                ViewBag.sale = db.Sales.Where(y => y.Sal_Date.Month == DateTime.Now.Month).AsEnumerable().Sum(x => x.Prod_gain);
                 s.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).ToList();
-                ViewBag.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Value);
+                ViewBag.transfer = db.Transfers.Where(y => y.Date.Month == DateTime.Now.Month).AsEnumerable().Sum(x => x.Value);
                 s.expens = db.Expenses.Where(y => y.Date.Month == DateTime.Now.Month).ToList();
-                ViewBag.expens = db.Expenses.Where(y => y.Date.Month == DateTime.Now.Month).Sum(x => x.Value);
+                ViewBag.expens = db.Expenses.Where(y => y.Date.Month == DateTime.Now.Month).AsEnumerable().Sum(x => x.Value);
                 return View(s);
             }
-            catch(Exception)
+            catch(Exception )
             {
                 ViewBag.Error = "حدث خطأ ";
                 ViewData["page"] = "Accounts";
                 return View("Error");
             }
            
+        }
+        public ActionResult AnotherMonth(string Month)
+        {
+            try
+            {
+                AccountClass s = new AccountClass();
+                s.purchase = db.Purchases.Include(p => p.Supplier).Include(x => x.Product).Where(y => y.Date.Month.ToString() == Month ).ToList();
+                ViewBag.sumPurchase = db.Purchases.Where(y => y.Date.Month.ToString() == Month).AsEnumerable().Sum(x => x.Prod_count * x.Prod_Price);
+                s.account = db.Accounts.ToList();
+                s.sale = db.Sales.Where(y => y.Sal_Date.Month.ToString() == Month).ToList();
+                ViewBag.sale = db.Sales.Where(y => y.Sal_Date.Month.ToString() == Month).AsEnumerable().Sum(x => x.Prod_gain);
+                s.transfer = db.Transfers.Where(y => y.Date.Month.ToString() == Month).ToList();
+                ViewBag.transfer = db.Transfers.Where(y => y.Date.Month.ToString() == Month).AsEnumerable().Sum(x => x.Value);
+                s.expens = db.Expenses.Where(y => y.Date.Month.ToString() == Month).ToList();
+                ViewBag.expens = db.Expenses.Where(y => y.Date.Month.ToString() == Month).AsEnumerable().Sum(x => x.Value);
+                ViewBag.month = Month;
+                return PartialView("_anotherMonth", s);
+            }
+            catch (Exception )
+            {
+                ViewBag.Error = "حدث خطأ ";
+                ViewData["page"] = "Accounts";
+                return View("Error");
+            }
         }
 
         [HttpPost]
@@ -47,9 +71,9 @@ namespace Demiady.Controllers
            try
             {
                 Account ac = new Account();
-                var purchase = db.Purchases.Where(b => b.Date.Month.ToString() == Month);
-                var sale = db.Sales.Where(b => b.Sal_Date.Month.ToString() == Month);
-                var transfer = db.Transfers.Where(b => b.Date.Month.ToString() == Month);
+                var purchase = db.Purchases.Where(b => b.Date.Month.ToString() == Month).AsEnumerable();
+                var sale = db.Sales.Where(b => b.Sal_Date.Month.ToString() == Month).AsEnumerable();
+                var transfer = db.Transfers.Where(b => b.Date.Month.ToString() == Month).AsEnumerable();
                 ac.Month = Month;
                 ac.Gained = sale.Sum(s => s.Prod_gain);
                 ac.In_Account = sale.Sum(s => s.Prod_Count * s.ProdMain_Price);

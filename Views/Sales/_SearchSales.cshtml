@@ -10,6 +10,9 @@
                 @Html.DisplayNameFor(model => model.Client_Name)
             </th>
             <th class="text-center">
+                @Html.DisplayNameFor(model => model.Client_Phone)
+            </th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.Product.Prod_Name)
             </th>
 
@@ -38,6 +41,9 @@
 
             <td>
                 @Html.DisplayFor(modelItem => item.Client_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Phone)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Prod_Name)

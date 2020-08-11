@@ -11,21 +11,17 @@
     @Html.ActionLink("تسجيل مشتريات جديدة", "AddMultiPurchase")
 </p>
 <div style="float:right">
-    @using (Ajax.BeginForm("Export", "Purchases", new AjaxOptions() { LoadingElementId = "loadImg", OnSuccess = "Success", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+    @using (Html.BeginForm("Export", "Purchases"))
     {
         <div class="row">
 
             <div class="col-md-12">
                 <input type="date" name="date" id="search_param" class="form-control">
                 <input type="text" class="form-control" name="name" placeholder="ادخل اسم المورد">
-                <button class="btn btn-info btn-lg" type="submit" onclick="SomeCallBackFunction()">استخراج</button>
-                <img id="loadImg" src="~/Images/loading_photoshop_animation_tutorial.gif" style="display:none" width="140" height="140"/>
-                <div id="LoadingDiv"></div>
+                <button class="btn btn-info btn-lg" type="submit">استخراج</button>
             </div>
 
         </div>
-
-
     }
 </div>
 @using (Ajax.BeginForm("Search", "Purchases", new AjaxOptions() { UpdateTargetId = "IndxPurchas", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
@@ -43,6 +39,7 @@
                 </button>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#Date">التاريخ </a></li>
+                    <li><a href="#Sal_Month">الشهر </a></li>
                     <li><a href="#Sup_ID">اسم المورد</a></li>
                     <li><a href="#Prod_ID">اسم المنتج</a></li>
                 </ul>
@@ -78,7 +75,7 @@
                 @Html.DisplayNameFor(model => model.Prod_count)
             </th>
 
-            <th class="text-center"></th>
+            <th class="text-center">التحكم</th>
         </tr>
 
         @foreach (var item in Model)
@@ -116,27 +113,7 @@
     </table>
 
 </div>
-<script>
-    function SomeCallBackFunction()
 
-    { $('#LoadingDiv').show(); }
-
-    function Success(data) {
-
-        if (data.status == "Success") {
-
-            //alert("success");
-            $('#loadImg').hide();
-            $('#LoadingDiv').html("<h4 style='color:green'>تم تنزل الملف</h4>");
-
-        }
-        else if (data.status == "Faild") {
-            $('#loadImg').hide();
-            $('#LoadingDiv').html("<h4 style='color:red'>لا توجد مشتريات ف هذا اليوم او لهذا المورود</h4>");
-        }
-
-    } 
-</script>
 
 <script>
     $(document).ready(function (e) {

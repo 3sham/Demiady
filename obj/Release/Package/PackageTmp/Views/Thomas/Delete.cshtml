@@ -1,0 +1,73 @@
+﻿@model Demiady.Thoma
+
+@{
+    ViewBag.Title = "ازالة بيانات مبيعات توماس";
+}
+
+<h2>ازالة بيانات مبيعات</h2>
+
+<h3>هل انت متاكد من ازالة هذه المبيعات</h3>
+<div>
+
+    <hr />
+    <table class="table table-bordered table-striped text-center">
+        <tr>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Product.Prod_Name)
+            </th>
+
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Price)
+            </th>
+            <th class="text-center">
+                @Html.DisplayNameFor(model => model.Prod_Count)
+            </th>
+            <th class="text-center">
+              المجموع
+            </th>
+
+
+        </tr>
+
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Date)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Product.Prod_Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Prod_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => modelItem.Prod_Count)
+            </td>
+            <td>
+                @{ var reuslt = Model.Prod_Price * Model.Prod_Count;}
+
+                @reuslt
+            </td>
+
+
+        </tr>
+
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="ازالة " class="btn btn-danger btn-lg" /> |
+            @Html.ActionLink("الرجوع لقائمة المبيعات", "Index")
+        </div>
+    }
+</div>

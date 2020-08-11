@@ -19,9 +19,10 @@ namespace Demiady
         public Product()
         {
             this.Purchases = new HashSet<Purchase>();
+            this.Retainers = new HashSet<Retainer>();
             this.Sales = new HashSet<Sale>();
             this.Stores = new HashSet<Store>();
-            this.Retainers = new HashSet<Retainer>();
+            this.Thomas = new HashSet<Thoma>();
         }
 
         public int Prod_ID { get; set; }
@@ -32,14 +33,15 @@ namespace Demiady
         [Required(ErrorMessage = "من فضلك ادخل سعر المنتج")]
         [Range(1, Int32.MaxValue, ErrorMessage = "القيمة يجب ان تكون اكبر من ال 0 ")]
         public int Prod_Price { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase> Purchases { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Retainer> Retainers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sales { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Retainer> Retainers { get; set; }
+        public virtual ICollection<Thoma> Thomas { get; set; }
     }
 }

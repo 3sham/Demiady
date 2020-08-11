@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using Demiady;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace Demiady.Controllers
 {
@@ -53,6 +56,11 @@ namespace Demiady.Controllers
             else if (searchparam == "Prod_ID")
             {
                 var s = db.Sales.Include(b => b.Product).Where(b => b.Product.Prod_Name.StartsWith(searchTerm));
+                return PartialView("_SearchSales", s.ToList());
+            }
+            else if (searchparam == "Sal_Month")
+            {
+                var s = db.Sales.Where(b => b.Sal_Date.Month.ToString() == searchTerm);
                 return PartialView("_SearchSales", s.ToList());
             }
             else
@@ -148,7 +156,7 @@ namespace Demiady.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Sal_ID,Client_Name,Prod_Price,Prod_Count,ProdMain_Price,Prod_gain,Sal_Date,Prod_ID")] Sale sale)
+        public ActionResult Create([Bind(Include = "Sal_ID,Client_Name,Client_Phone,Prod_Price,Prod_Count,ProdMain_Price,Prod_gain,Sal_Date,Prod_ID")] Sale sale)
         {
             try
             {
@@ -213,7 +221,7 @@ namespace Demiady.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Sal_ID,Client_Name,Prod_Price,Prod_Count,ProdMain_Price,Prod_gain,Sal_Date,Prod_ID")] Sale sale)
+        public ActionResult Edit([Bind(Include = "Sal_ID,Client_Name,Client_Phone,Prod_Price,Prod_Count,ProdMain_Price,Prod_gain,Sal_Date,Prod_ID")] Sale sale)
         {
             try
             {
@@ -223,7 +231,7 @@ namespace Demiady.Controllers
 
                     var store = db.Stores.Where(i => i.Prod_ID == sale.Prod_ID).FirstOrDefault();
 
-                    if (store.Prod_Count > 0 && store.Prod_Count >= sale.Prod_Count)
+                    if (store.Prod_Count >= 0 )
                     {
                         var sale2 = db.Sales.Find(sale.Sal_ID);
 
@@ -239,7 +247,14 @@ namespace Demiady.Controllers
                             db.Entry(store).State = EntityState.Modified;
                             db.Entry(sale2).State = EntityState.Detached;
                         }
+                        else if (sale2.Prod_Count == sale.Prod_Count)
+                        {
+                            
+                            db.Entry(store).State = EntityState.Modified;
+                            db.Entry(sale2).State = EntityState.Detached;
+                        }
 
+                        //db.Entry(sale2).State = EntityState.Detached;
                     }
                     else
                     {
@@ -247,6 +262,8 @@ namespace Demiady.Controllers
                         ViewData["page"] = "Sales";
                         return View("Error");
                     }
+                    //db.Entry(store).State = EntityState.Detached;
+                    
                     db.Entry(sale).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Index");
@@ -254,9 +271,9 @@ namespace Demiady.Controllers
                 ViewBag.Prod_ID = new SelectList(db.Products, "Prod_ID", "Prod_Name", sale.Prod_ID);
                 return View(sale);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ViewBag.Error = "حدث خطأ ";
+                ViewBag.Error = "هذا المنتج لا يوجد منه ف المخزن  او الكمية غير متوفرة";
                 ViewData["page"] = "Sales";
                 return View("Error");
             }
@@ -314,134 +331,133 @@ namespace Demiady.Controllers
             try
             {
                 name = name.Trim();
-                Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
-                Microsoft.Office.Interop.Excel.Workbook workbook = app.Workbooks.Add(System.Reflection.Missing.Value);
-                Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.ActiveSheet;
+               
                 if (name == "" && date != null)
                 {
-                    var sale = db.Sales.Include(s=>s.Product).Where(e => e.Sal_Date.Equals(date)).ToList();
-                    if (sale.Count > 0)
+                    ExcelPackage pck = new ExcelPackage();
+                    ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+                    var sales = db.Sales.Include(s => s.Product).Where(e => e.Sal_Date.Equals(date)).ToList();
+                    if (sales.Count > 0)
                     {
-                        worksheet.Cells[1, 1] = "المجموع";
-                        worksheet.Cells[1, 2] = "المكسب";
-                        worksheet.Cells[1, 3] = "السعر الاصلي للمنتج";
-                        worksheet.Cells[1, 4] = "العدد";
-                        worksheet.Cells[1, 5] = "سعر بيع المنتج";
-                        worksheet.Cells[1, 6] = "  اسم المنتج   ";
-                        worksheet.Cells[1, 7] = "اسم العميل";
-                        worksheet.Cells[1, 8] = "التاريخ";
-                        int row = 2;
-                        foreach (var p in sale)
-                        {
-                            worksheet.Cells[row, 1] = p.Prod_Count * p.Prod_Price;
-                            worksheet.Cells[row, 2] = p.Prod_gain;
-                            worksheet.Cells[row, 3] = p.ProdMain_Price;
-                            worksheet.Cells[row, 4] = p.Prod_Count;
-                            worksheet.Cells[row, 5] = p.Prod_Price;
-                            worksheet.Cells[row, 6] = p.Product.Prod_Name;
-                            worksheet.Cells[row, 7] = p.Client_Name;
-                            worksheet.Cells[row, 8] = p.Sal_Date;
-                            row++;
-                        }
-                        worksheet.Cells[row, 2] = "المجموع الكلي";
-                        worksheet.Cells[row, 1] = sale.Sum(s => s.Prod_Count * s.Prod_Price);
-                        var row1 = worksheet.Rows[row];
-                        row1.Font.Size = 15;
-                        row1.Font.Bold = true;
-                        row1.Font.Color = System.Drawing.Color.RoyalBlue;
-                        worksheet.get_Range("A1", "H1").EntireColumn.AutoFit();
-                        worksheet.Cells.Style.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                        worksheet.get_Range("A1", "F1").Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                        // format heading
-                        var range_heading = worksheet.get_Range("A1", "H1");
-                        range_heading.Font.Bold = true;
-                        range_heading.Font.Color = System.Drawing.Color.DeepSkyBlue;
+                        ws.Cells["A1"].Value = "المجموع";
+                        ws.Cells["B1"].Value = "المكسب";
+                        ws.Cells["C1"].Value = "السعر الاصلي للمنتج";
+                        ws.Cells["D1"].Value = "العدد";
+                        ws.Cells["E1"].Value = "سعر بيع المنتج";
+                        ws.Cells["F1"].Value = "  اسم المنتج   ";
+                        ws.Cells["G1"].Value = "رقم العميل";
+                        ws.Cells["H1"].Value = "اسم العميل";
+                        ws.Cells["I1"].Value = "التاريخ";
+                      
+                        ws.Cells["A1:I1"].Style.Font.Bold = true;
+                        ws.Cells["A1:I1"].Style.Font.Color.SetColor(Color.DeepSkyBlue);
 
-                        range_heading.Font.Size = 13;
-                        //string filename = "E:\\مبيعات يوم " + date.ToString("MM-dd-yyy") + ".csv";
-                        string filename = "E:\\مبيعات يوم " + date.ToString("MM-dd-yyy") + ".csv";
-                        workbook.SaveAs(filename);
-                        workbook.Close();
-                        Marshal.ReleaseComObject(workbook);
-                        app.Quit();
-                       
-                        Marshal.FinalReleaseComObject(app);
-                        ViewBag.saaved = "تم التنزيل";
+                        int rowstart = 2;
+                        foreach (var item in sales)
+                        {
+                          
+                            ws.Cells[string.Format("A{0}", rowstart)].Value = item.Prod_Count * item.Prod_Price;
+                            ws.Cells[string.Format("B{0}", rowstart)].Value = item.Prod_gain;
+                            ws.Cells[string.Format("C{0}", rowstart)].Value = item.ProdMain_Price;
+                            ws.Cells[string.Format("D{0}", rowstart)].Value = item.Prod_Count;
+                            ws.Cells[string.Format("E{0}", rowstart)].Value = item.Prod_Price;
+                            ws.Cells[string.Format("F{0}", rowstart)].Value = item.Product.Prod_Name;
+                            ws.Cells[string.Format("G{0}", rowstart)].Value = item.Client_Phone;
+                            ws.Cells[string.Format("H{0}", rowstart)].Value = item.Client_Name;
+                            ws.Cells[string.Format("I{0}", rowstart)].Value = string.Format("{0:dd/MM/yyyy}",item.Sal_Date);
+                            rowstart++;
+                        }
+                        string filename = "مبيعات يوم " + date.ToString("MM-dd-yyy") + ".xlsx";
+                        ws.Cells[string.Format("B{0}",rowstart)].Value = "المجموع الكلي";
+                        ws.Cells[string.Format("A{0}", rowstart)].Value = sales.Sum(s => s.Prod_Count * s.Prod_Price);
+                        ws.Cells[string.Format("B{0}", rowstart)].Style.Font.Bold = true;
+                        ws.Cells[string.Format("B{0}", rowstart)].Style.Font.Color.SetColor(Color.SandyBrown);
+                        ws.Cells[string.Format("A{0}", rowstart)].Style.Font.Bold = true;
+                        ws.Cells[string.Format("A{0}", rowstart)].Style.Font.Color.SetColor(Color.SandyBrown);
+                        
+                        ws.Cells["A:AZ"].AutoFitColumns();                      
+                        ws.Cells["A:AZ"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        Response.Clear();
+                        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        Response.AddHeader("content-disposition", @"attachment; filename = " + filename);
+                        Response.BinaryWrite(pck.GetAsByteArray());
+                        Response.End();
                         return Json(new { status = "Success" });
                     }
                     else
                     {
-                        return Json(new { status = "Faild" });
+                        
+                        return RedirectToAction("Index");
                     }
 
                 }
-               
+
                 else if (date != null && name != null)
                 {
-                    var sale = db.Sales.Include(s => s.Product).Where(e => e.Sal_Date.Equals(date)).Where(s=>s.Client_Name == name).ToList();
-                    if (sale.Count > 0)
+                    ExcelPackage pck = new ExcelPackage();
+                    ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+                    var sales = db.Sales.Include(s => s.Product).Where(e => e.Sal_Date.Equals(date)).Where(s => s.Client_Name == name).ToList();
+                    if (sales.Count > 0)
                     {
-                        worksheet.Cells[1, 1] = "المجموع";
-                        worksheet.Cells[1, 2] = "المكسب";
-                        worksheet.Cells[1, 3] = "السعر الاصلي للمنتج";
-                        worksheet.Cells[1, 4] = "العدد";
-                        worksheet.Cells[1, 5] = "سعر بيع المنتج";
-                        worksheet.Cells[1, 6] = "  اسم المنتج   ";
-                        worksheet.Cells[1, 7] = "اسم العميل";
-                        worksheet.Cells[1, 8] = "التاريخ";
-                        int row = 2;
-                        foreach (var p in sale)
+                        ws.Cells["A1"].Value = "المجموع";
+                        ws.Cells["B1"].Value = "المكسب";
+                        ws.Cells["C1"].Value = "السعر الاصلي للمنتج";
+                        ws.Cells["D1"].Value = "العدد";
+                        ws.Cells["E1"].Value = "سعر بيع المنتج";
+                        ws.Cells["F1"].Value = "  اسم المنتج   ";
+                        ws.Cells["G1"].Value = "رقم العميل";
+                        ws.Cells["H1"].Value = "اسم العميل";
+                        ws.Cells["I1"].Value = "التاريخ";
+                        ws.Cells["A1:I1"].Style.Font.Bold = true;
+                        ws.Cells["A1:I1"].Style.Font.Color.SetColor(Color.DeepSkyBlue);
+                        int rowstart = 2;
+                        foreach (var item in sales)
                         {
-                            worksheet.Cells[row, 1] = p.Prod_Count * p.Prod_Price;
-                            worksheet.Cells[row, 2] = p.Prod_gain;
-                            worksheet.Cells[row, 3] = p.ProdMain_Price;
-                            worksheet.Cells[row, 4] = p.Prod_Count;
-                            worksheet.Cells[row, 5] = p.Prod_Price;
-                            worksheet.Cells[row, 6] = p.Product.Prod_Name;
-                            worksheet.Cells[row, 7] = p.Client_Name;
-                            worksheet.Cells[row, 8] = p.Sal_Date;
-                            row++;
+                            
+                            ws.Cells[string.Format("A{0}", rowstart)].Value = item.Prod_Count * item.Prod_Price;
+                            ws.Cells[string.Format("B{0}", rowstart)].Value = item.Prod_gain;
+                            ws.Cells[string.Format("C{0}", rowstart)].Value = item.ProdMain_Price;
+                            ws.Cells[string.Format("D{0}", rowstart)].Value = item.Prod_Count;
+                            ws.Cells[string.Format("E{0}", rowstart)].Value = item.Prod_Price;
+                            ws.Cells[string.Format("F{0}", rowstart)].Value = item.Product.Prod_Name;
+                            ws.Cells[string.Format("G{0}", rowstart)].Value = item.Client_Phone;
+                            ws.Cells[string.Format("H{0}", rowstart)].Value = item.Client_Name;
+                            ws.Cells[string.Format("I{0}", rowstart)].Value = string.Format("{0:dd/MM/yyyy}", item.Sal_Date);
+                            rowstart++;
                         }
-                        worksheet.Cells[row, 2] = "المجموع الكلي";
-                        worksheet.Cells[row, 1] = sale.Sum(s => s.Prod_Count * s.Prod_Price);
-                        var row1 = worksheet.Rows[row];
-                        row1.Font.Size = 15;
-                        row1.Font.Bold = true;
-                        row1.Font.Color = System.Drawing.Color.RoyalBlue;
-                        worksheet.get_Range("A1", "H1").EntireColumn.AutoFit();
-                        worksheet.Cells.Style.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                        worksheet.get_Range("A1", "F1").Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                        // format heading
-                        var range_heading = worksheet.get_Range("A1", "H1");
-                        range_heading.Font.Bold = true;
-                        range_heading.Font.Color = System.Drawing.Color.DeepSkyBlue;
-
-                        range_heading.Font.Size = 13;
-                        //string filename = "E:\\مبيعات يوم " + date.ToString("MM-dd-yyy") + ".csv";
-                        string filename = "E:\\مبيعات  " + name + " يوم " + date.ToString("MM-dd-yyy") + ".csv";
-                        workbook.SaveAs(filename);
-                        workbook.Close();
-                        Marshal.ReleaseComObject(workbook);
-                        app.Quit();
-                        Marshal.FinalReleaseComObject(app);
+                        
+                        string filename = "مبيعات  " + name + " يوم " + date.ToString("MM-dd-yyy") + ".xlsx";
+                        ws.Cells[string.Format("B{0}", rowstart)].Value = "المجموع الكلي";
+                        ws.Cells[string.Format("A{0}", rowstart)].Value = sales.Sum(s => s.Prod_Count * s.Prod_Price);
+                        ws.Cells[string.Format("B{0}", rowstart)].Style.Font.Bold = true;
+                        ws.Cells[string.Format("B{0}", rowstart)].Style.Font.Color.SetColor(Color.SandyBrown);
+                        ws.Cells[string.Format("A{0}", rowstart)].Style.Font.Bold = true;
+                        ws.Cells[string.Format("A{0}", rowstart)].Style.Font.Color.SetColor(Color.SandyBrown);
+                        ws.Cells["A:AZ"].AutoFitColumns();
+                        ws.Cells["A:AZ"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        Response.Clear();
+                        Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        Response.AddHeader("content-disposition", @"attachment; filename = " + filename);
+                        Response.BinaryWrite(pck.GetAsByteArray());
+                        Response.End();
                         ViewBag.saaved = "تم التنزيل";
                         return Json(new { status = "Success" });
                     }
                     else
                     {
-                        return Json(new { status = "Faild" });
+                        return RedirectToAction("Index");
                     }
                 }
                 else
                 {
-                    return Json(new { status = "Faild" });
+                    return RedirectToAction("Index");
                 }
 
             }
             catch (Exception)
             {
                 ViewBag.Error = "حدث خطأ ";
-                ViewData["page"] = "Purchases";
+                ViewData["page"] = "Sales";
                 return View("Error");
             }
         }

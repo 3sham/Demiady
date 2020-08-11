@@ -1,0 +1,304 @@
+﻿
+@model  Demiady.Models.AccountClass
+
+@{
+    ViewBag.Title = "الحسابات";
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<div id="IndxAcc">
+
+    <h1 class="text-center">حسابات شهر @ViewBag.month</h1>
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>المشتريات</h1>
+            <table class="table table-bordered table-striped text-center">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayName("التاريخ")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المورد")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المنتج")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("سعر الواحدة")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("العدد")
+                    </th>
+                    @*<th></th>*@
+                </tr>
+
+                @foreach (var item in Model.purchase)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.Sup_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prod_Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prod_count)
+                        </td>
+                        @*<td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Pur_ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.Acc_ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Acc_ID })
+                            </td>*@
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع المشتريات</td>
+
+                    <td colspan="2" style="font-size:25px;font-weight:bold">@ViewBag.sumPurchase</td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <h1>المبيعات</h1>
+            <table class="table table-bordered table-striped text-center">
+                <tr>
+                    @*<th class="text-center">
+                            @Html.DisplayName("اسم العميل")
+                        </th>*@
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المنتج")
+                    </th>
+                    @*<th class="text-center">
+                            @Html.DisplayName("سعر بيع المنتج")
+                        </th>*@
+                    <th class="text-center">
+                        @Html.DisplayName("العدد")
+                    </th>
+                    @*@<th class="text-center">
+                            @Html.DisplayName("السعر الاصلي للمنتج")
+                        </th>*@
+                    <th class="text-center">
+                        @Html.DisplayName("المكسب الصافي")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName(" التاريخ")
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.sale)
+                {
+                    <tr>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Client_Name)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.Prod_Price)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prod_Count)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ProdMain_Price)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Prod_gain)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sal_Date)
+                        </td>
+
+                    </tr>
+                }
+                <tr>
+                    <td colspan="3" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع الارباح</td>
+
+                    <td style="font-size:25px;font-weight:bold">@ViewBag.sale</td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <h1>المصروفات</h1>
+            <table class="table table-bordered table-striped text-center">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayName("التاريخ")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المصروف")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("قيمة المصروف")
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.expens)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="2" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع المصروفات</td>
+
+                    <td style="font-size:25px;font-weight:bold">@ViewBag.expens </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-lg-6">
+            <h1>التوريدات</h1>
+            <table class="table table-bordered table-striped text-center">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayName("التاريخ")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("اسم المورد")
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayName("قيمة التوريد")
+                    </th>
+
+                </tr>
+
+                @foreach (var item in Model.transfer)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.Sup_Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+
+                    </tr>
+                }
+
+                <tr>
+                    <td colspan="2" style="font-size:25px;font-weight:bold;background-color:cadetblue;color:white">مجموع التوريدات</td>
+
+                    <td style="font-size:25px;font-weight:bold">@ViewBag.transfer</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            @using (Ajax.BeginForm("Add", "Accounts", new AjaxOptions() { UpdateTargetId = "IndxAccount", HttpMethod = "post", InsertionMode = InsertionMode.Replace }))
+            {
+
+
+                <select class="form-control-static" name="Month" style="font-size:20px;">
+                    <option value="">اختر الشهر</option>
+                    <option value="1">يناير</option>
+                    <option value="2">فبراير</option>
+                    <option value="3">مارس</option>
+                    <option value="4">ابريل</option>
+                    <option value="5">مايو</option>
+                    <option value="6">يونيو</option>
+                    <option value="7">يوليو</option>
+                    <option value="8">اغسطس</option>
+                    <option value="9">سبتمبر</option>
+                    <option value="10">اكتوبر</option>
+                    <option value="11">نوفمبر</option>
+                    <option value="12">ديسمبر</option>
+                </select>
+
+                <button class="btn btn-info btn-lg" type="submit">احسب</button>
+
+
+
+
+            }
+            <div id="IndxAccount">
+                <h1>الحسابات</h1>
+
+                <table class="table table-bordered table-striped text-center">
+                    <tr>
+                        <th class="text-center">
+                            @Html.DisplayName("الشهر")
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayName("الدخل الشهري للبضاعه المباعه")
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayName("مجموع التوريدات")
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayName("الربح الشهري")
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayName("العهدة")
+                        </th>
+
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model.account)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Month)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.In_Account)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Out_Account)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gained)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Wallet)
+                            </td>
+                            <td>
+
+                                @Html.ActionLink("تعديل", "Edit", new { id = item.Acc_ID }) |
+
+                                @Html.ActionLink("ازلة", "Delete", new { id = item.Acc_ID })
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

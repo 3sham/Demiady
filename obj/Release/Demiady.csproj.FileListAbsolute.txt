@@ -162,3 +162,5 @@ E:\Gerges\Demiady\Demiady\bin\pt\Microsoft.ReportViewer.WinForms.resources.dll
 E:\Gerges\Demiady\Demiady\bin\ru\Microsoft.ReportViewer.WinForms.resources.dll
 E:\Gerges\Demiady\Demiady\bin\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 E:\Gerges\Demiady\Demiady\bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+E:\Gerges\Demiady\Demiady\bin\EPPlus.dll
+E:\Gerges\Demiady\Demiady\bin\EPPlus.xml

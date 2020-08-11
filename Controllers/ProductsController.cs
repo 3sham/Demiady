@@ -80,14 +80,25 @@ namespace Demiady.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Products.Add(product);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    var s = db.Products.Where(x => x.Prod_Name == product.Prod_Name).ToList();
+                    if (s.Count() > 0)
+                    {
+                        ViewBag.Error = "هذا المنتج مسجل بالفعل";
+                        ViewData["page"] = "Products";
+                        return View("Error");
+                    }
+                    else
+                    {
+                        db.Products.Add(product);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    
                 }
 
                 return View(product);
             }
-            catch (Exception )
+            catch (Exception ex)
             {
                 ViewBag.Error = "حدث خطأ ";
 
@@ -125,9 +136,12 @@ namespace Demiady.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    db.Entry(product).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                   
+                        db.Entry(product).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    
+                    
                 }
                 return View(product);
             }

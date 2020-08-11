@@ -9,36 +9,37 @@
 <p>
     @Html.ActionLink("تسجيل عربون جديد", "Create")
 </p>
-<table class="table">
+<table class="table table-bordered table-striped text-center">
     <tr>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Ret_Date)
         </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Client_Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prod_Price)
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Client_Phone)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prod_Count)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProdMain_Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prod_gain)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ret_Value)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Due_date)
-        </th>
-        <th>
+        <th class="text-center">
             @Html.DisplayNameFor(model => model.Product.Prod_Name)
         </th>
-        <th></th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Prod_Price)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Prod_Count)
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Ret_Value)
+        </th>
+        <th class="text-center">
+            الباقي
+        </th>
+        <th class="text-center">
+            @Html.DisplayNameFor(model => model.Due_date)
+        </th>
+
+        <th class="text-center">التحكم</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -50,30 +51,33 @@
             @Html.DisplayFor(modelItem => item.Client_Name)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Client_Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.Prod_Name)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Prod_Price)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Prod_Count)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProdMain_Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prod_gain)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Ret_Value)
+        </td>
+        <td>
+            @{ var reuslt = item.Prod_Price - item.Ret_Value;}
+
+            @reuslt
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Due_date)
         </td>
+
         <td>
-            @Html.DisplayFor(modelItem => item.Product.Prod_Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Ret_ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Ret_ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Ret_ID })
+            @Html.ActionLink("تعديل", "Edit", new { id = item.Ret_ID }) |
+
+            @Html.ActionLink("ازالة", "Delete", new { id = item.Ret_ID })
         </td>
     </tr>
 }
